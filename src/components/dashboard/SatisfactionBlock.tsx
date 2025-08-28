@@ -17,159 +17,170 @@ const topicsData = [
 
 // ข้อมูลคะแนนความพึงพอใจตามภาค
 const satisfactionDataByRegion = {
-  "all": [
-    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.3 },
-    { criteria: "ความน่าเชื่อถือ", score: 4.1 },
-    { criteria: "ความรวดเร็ว", score: 4.2 },
-    { criteria: "ความสุภาพ/บริการ", score: 4.4 },
-    { criteria: "สภาพแวดล้อม", score: 4.0 },
-    { criteria: "ความพร้อมรับ", score: 4.2 }
-  ],
   "ภาค 1": [
-    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.5 },
-    { criteria: "ความน่าเชื่อถือ", score: 4.2 },
-    { criteria: "ความรวดเร็ว", score: 4.3 },
-    { criteria: "ความสุภาพ/บริการ", score: 4.6 },
-    { criteria: "สภาพแวดล้อม", score: 4.1 },
-    { criteria: "ความพร้อมรับ", score: 4.3 }
+    { criteria: "การดูแล ความเอาใจใส่", score: 4.5 },
+    { criteria: "ความประทับใจฯ", score: 4.3 },
+    { criteria: "ความน่าเชื่อถือฯ", score: 4.2 },
+    { criteria: "ความรวดเร็วฯ", score: 4.1 },
+    { criteria: "ความถูกต้องฯ", score: 4.8 },
+    { criteria: "ความพร้อมฯ", score: 4.0 },
+    { criteria: "สภาพแวดล้อมฯ", score: 4.4 }
   ],
   "ภาค 2": [
-    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.1 },
-    { criteria: "ความน่าเชื่อถือ", score: 4.0 },
-    { criteria: "ความรวดเร็ว", score: 4.1 },
-    { criteria: "ความสุภาพ/บริการ", score: 4.3 },
-    { criteria: "สภาพแวดล้อม", score: 3.9 },
-    { criteria: "ความพร้อมรับ", score: 4.1 }
+    { criteria: "การดูแล ความเอาใจใส่", score: 4.1 },
+    { criteria: "ความประทับใจฯ", score: 4.2 },
+    { criteria: "ความน่าเชื่อถือฯ", score: 4.3 },
+    { criteria: "ความรวดเร็วฯ", score: 4.5 },
+    { criteria: "ความถูกต้องฯ", score: 4.7 },
+    { criteria: "ความพร้อมฯ", score: 4.2 },
+    { criteria: "สภาพแวดล้อมฯ", score: 4.4 }
   ],
   "ภาค 3": [
-    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.6 },
-    { criteria: "ความน่าเชื่อถือ", score: 4.4 },
-    { criteria: "ความรวดเร็ว", score: 4.5 },
-    { criteria: "ความสุภาพ/บริการ", score: 4.7 },
-    { criteria: "สภาพแวดล้อม", score: 4.3 },
-    { criteria: "ความพร้อมรับ", score: 4.5 }
+    { criteria: "การดูแล ความเอาใจใส่", score: 4.2 },
+    { criteria: "ความประทับใจฯ", score: 4.4 },
+    { criteria: "ความน่าเชื่อถือฯ", score: 4.1 },
+    { criteria: "ความรวดเร็วฯ", score: 3.9 },
+    { criteria: "ความถูกต้องฯ", score: 4.6 },
+    { criteria: "ความพร้อมฯ", score: 4.0 },
+    { criteria: "สภาพแวดล้อมฯ", score: 4.3 }
   ],
   "ภาค 4": [
-    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.2 },
-    { criteria: "ความน่าเชื่อถือ", score: 3.9 },
-    { criteria: "ความรวดเร็ว", score: 4.0 },
-    { criteria: "ความสุภาพ/บริการ", score: 4.2 },
-    { criteria: "สภาพแวดล้อม", score: 3.8 },
-    { criteria: "ความพร้อมรับ", score: 4.0 }
+    { criteria: "การดูแล ความเอาใจใส่", score: 4.3 },
+    { criteria: "ความประทับใจฯ", score: 4.1 },
+    { criteria: "ความน่าเชื่อถือฯ", score: 4.0 },
+    { criteria: "ความรวดเร็วฯ", score: 4.4 },
+    { criteria: "ความถูกต้องฯ", score: 4.8 },
+    { criteria: "ความพร้อมฯ", score: 4.1 },
+    { criteria: "สภาพแวดล้อมฯ", score: 4.5 }
   ],
   "ภาค 5": [
-    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.4 },
-    { criteria: "ความน่าเชื่อถือ", score: 4.3 },
-    { criteria: "ความรวดเร็ว", score: 4.2 },
-    { criteria: "ความสุภาพ/บริการ", score: 4.5 },
-    { criteria: "สภาพแวดล้อม", score: 4.2 },
-    { criteria: "ความพร้อมรับ", score: 4.4 }
+    { criteria: "การดูแล ความเอาใจใส่", score: 4.4 },
+    { criteria: "ความประทับใจฯ", score: 4.3 },
+    { criteria: "ความน่าเชื่อถือฯ", score: 4.2 },
+    { criteria: "ความรวดเร็วฯ", score: 4.5 },
+    { criteria: "ความถูกต้องฯ", score: 4.7 },
+    { criteria: "ความพร้อมฯ", score: 4.3 },
+    { criteria: "สภาพแวดล้อมฯ", score: 4.2 }
   ],
   "ภาค 6": [
-    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.0 },
-    { criteria: "ความน่าเชื่อถือ", score: 3.8 },
-    { criteria: "ความรวดเร็ว", score: 3.9 },
-    { criteria: "ความสุภาพ/บริการ", score: 4.1 },
-    { criteria: "สภาพแวดล้อม", score: 3.7 },
-    { criteria: "ความพร้อมรับ", score: 3.9 }
+    { criteria: "การดูแล ความเอาใจใส่", score: 4.1 },
+    { criteria: "ความประทับใจฯ", score: 4.4 },
+    { criteria: "ความน่าเชื่อถือฯ", score: 4.3 },
+    { criteria: "ความรวดเร็วฯ", score: 4.2 },
+    { criteria: "ความถูกต้องฯ", score: 4.6 },
+    { criteria: "ความพร้อมฯ", score: 4.0 },
+    { criteria: "สภาพแวดล้อมฯ", score: 4.5 }
   ],
   "ภาค 7": [
-    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.3 },
-    { criteria: "ความน่าเชื่อถือ", score: 4.1 },
-    { criteria: "ความรวดเร็ว", score: 4.1 },
-    { criteria: "ความสุภาพ/บริการ", score: 4.4 },
-    { criteria: "สภาพแวดล้อม", score: 4.0 },
-    { criteria: "ความพร้อมรับ", score: 4.2 }
+    { criteria: "การดูแล ความเอาใจใส่", score: 4.2 },
+    { criteria: "ความประทับใจฯ", score: 4.3 },
+    { criteria: "ความน่าเชื่อถือฯ", score: 4.5 },
+    { criteria: "ความรวดเร็วฯ", score: 4.1 },
+    { criteria: "ความถูกต้องฯ", score: 4.7 },
+    { criteria: "ความพร้อมฯ", score: 4.2 },
+    { criteria: "สภาพแวดล้อมฯ", score: 4.3 }
   ],
   "ภาค 8": [
-    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.7 },
-    { criteria: "ความน่าเชื่อถือ", score: 4.5 },
-    { criteria: "ความรวดเร็ว", score: 4.6 },
-    { criteria: "ความสุภาพ/บริการ", score: 4.8 },
-    { criteria: "สภาพแวดล้อม", score: 4.4 },
-    { criteria: "ความพร้อมรับ", score: 4.6 }
+    { criteria: "การดูแล ความเอาใจใส่", score: 4.3 },
+    { criteria: "ความประทับใจฯ", score: 4.2 },
+    { criteria: "ความน่าเชื่อถือฯ", score: 4.4 },
+    { criteria: "ความรวดเร็วฯ", score: 4.3 },
+    { criteria: "ความถูกต้องฯ", score: 4.8 },
+    { criteria: "ความพร้อมฯ", score: 4.1 },
+    { criteria: "สภาพแวดล้อมฯ", score: 4.4 }
   ],
   "ภาค 9": [
-    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.1 },
-    { criteria: "ความน่าเชื่อถือ", score: 3.9 },
-    { criteria: "ความรวดเร็ว", score: 4.0 },
-    { criteria: "ความสุภาพ/บริการ", score: 4.2 },
-    { criteria: "สภาพแวดล้อม", score: 3.8 },
-    { criteria: "ความพร้อมรับ", score: 4.0 }
+    { criteria: "การดูแล ความเอาใจใส่", score: 4.4 },
+    { criteria: "ความประทับใจฯ", score: 4.1 },
+    { criteria: "ความน่าเชื่อถือฯ", score: 4.2 },
+    { criteria: "ความรวดเร็วฯ", score: 4.5 },
+    { criteria: "ความถูกต้องฯ", score: 4.7 },
+    { criteria: "ความพร้อมฯ", score: 4.0 },
+    { criteria: "สภาพแวดล้อมฯ", score: 4.3 }
   ],
   "ภาค 10": [
-    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.5 },
-    { criteria: "ความน่าเชื่อถือ", score: 4.3 },
-    { criteria: "ความรวดเร็ว", score: 4.4 },
-    { criteria: "ความสุภาพ/บริการ", score: 4.6 },
-    { criteria: "สภาพแวดล้อม", score: 4.2 },
-    { criteria: "ความพร้อมรับ", score: 4.4 }
+    { criteria: "การดูแล ความเอาใจใส่", score: 4.2 },
+    { criteria: "ความประทับใจฯ", score: 4.3 },
+    { criteria: "ความน่าเชื่อถือฯ", score: 4.1 },
+    { criteria: "ความรวดเร็วฯ", score: 4.4 },
+    { criteria: "ความถูกต้องฯ", score: 4.6 },
+    { criteria: "ความพร้อมฯ", score: 4.2 },
+    { criteria: "สภาพแวดล้อมฯ", score: 4.5 }
   ],
   "ภาค 11": [
-    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.2 },
-    { criteria: "ความน่าเชื่อถือ", score: 4.0 },
-    { criteria: "ความรวดเร็ว", score: 4.1 },
-    { criteria: "ความสุภาพ/บริการ", score: 4.3 },
-    { criteria: "สภาพแวดล้อม", score: 3.9 },
-    { criteria: "ความพร้อมรับ", score: 4.1 }
+    { criteria: "การดูแล ความเอาใจใส่", score: 4.1 },
+    { criteria: "ความประทับใจฯ", score: 4.4 },
+    { criteria: "ความน่าเชื่อถือฯ", score: 4.2 },
+    { criteria: "ความรวดเร็วฯ", score: 4.3 },
+    { criteria: "ความถูกต้องฯ", score: 4.7 },
+    { criteria: "ความพร้อมฯ", score: 4.1 },
+    { criteria: "สภาพแวดล้อมฯ", score: 4.2 }
   ],
   "ภาค 12": [
-    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.4 },
-    { criteria: "ความน่าเชื่อถือ", score: 4.2 },
-    { criteria: "ความรวดเร็ว", score: 4.3 },
-    { criteria: "ความสุภาพ/บริการ", score: 4.5 },
-    { criteria: "สภาพแวดล้อม", score: 4.1 },
-    { criteria: "ความพร้อมรับ", score: 4.3 }
+    { criteria: "การดูแล ความเอาใจใส่", score: 4.3 },
+    { criteria: "ความประทับใจฯ", score: 4.2 },
+    { criteria: "ความน่าเชื่อถือฯ", score: 4.5 },
+    { criteria: "ความรวดเร็วฯ", score: 4.1 },
+    { criteria: "ความถูกต้องฯ", score: 4.8 },
+    { criteria: "ความพร้อมฯ", score: 4.3 },
+    { criteria: "สภาพแวดล้อมฯ", score: 4.4 }
   ],
   "ภาค 13": [
-    { criteria: "การอธิบาย/ความเข้าใจได้", score: 3.9 },
-    { criteria: "ความน่าเชื่อถือ", score: 3.7 },
-    { criteria: "ความรวดเร็ว", score: 3.8 },
-    { criteria: "ความสุภาพ/บริการ", score: 4.0 },
-    { criteria: "สภาพแวดล้อม", score: 3.6 },
-    { criteria: "ความพร้อมรับ", score: 3.8 }
+    { criteria: "การดูแล ความเอาใจใส่", score: 4.4 },
+    { criteria: "ความประทับใจฯ", score: 4.1 },
+    { criteria: "ความน่าเชื่อถือฯ", score: 4.3 },
+    { criteria: "ความรวดเร็วฯ", score: 4.2 },
+    { criteria: "ความถูกต้องฯ", score: 4.6 },
+    { criteria: "ความพร้อมฯ", score: 4.0 },
+    { criteria: "สภาพแวดล้อมฯ", score: 4.3 }
   ],
   "ภาค 14": [
-    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.6 },
-    { criteria: "ความน่าเชื่อถือ", score: 4.4 },
-    { criteria: "ความรวดเร็ว", score: 4.5 },
-    { criteria: "ความสุภาพ/บริการ", score: 4.7 },
-    { criteria: "สภาพแวดล้อม", score: 4.3 },
-    { criteria: "ความพร้อมรับ", score: 4.5 }
+    { criteria: "การดูแล ความเอาใจใส่", score: 4.2 },
+    { criteria: "ความประทับใจฯ", score: 4.4 },
+    { criteria: "ความน่าเชื่อถือฯ", score: 4.1 },
+    { criteria: "ความรวดเร็วฯ", score: 4.3 },
+    { criteria: "ความถูกต้องฯ", score: 4.7 },
+    { criteria: "ความพร้อมฯ", score: 4.1 },
+    { criteria: "สภาพแวดล้อมฯ", score: 4.2 }
   ],
   "ภาค 15": [
-    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.1 },
-    { criteria: "ความน่าเชื่อถือ", score: 3.9 },
-    { criteria: "ความรวดเร็ว", score: 4.0 },
-    { criteria: "ความสุภาพ/บริการ", score: 4.2 },
-    { criteria: "สภาพแวดล้อม", score: 3.8 },
-    { criteria: "ความพร้อมรับ", score: 4.0 }
+    { criteria: "การดูแล ความเอาใจใส่", score: 4.3 },
+    { criteria: "ความประทับใจฯ", score: 4.2 },
+    { criteria: "ความน่าเชื่อถือฯ", score: 4.4 },
+    { criteria: "ความรวดเร็วฯ", score: 4.5 },
+    { criteria: "ความถูกต้องฯ", score: 4.6 },
+    { criteria: "ความพร้อมฯ", score: 4.0 },
+    { criteria: "สภาพแวดล้อมฯ", score: 4.5 }
   ],
   "ภาค 16": [
-    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.3 },
-    { criteria: "ความน่าเชื่อถือ", score: 4.1 },
-    { criteria: "ความรวดเร็ว", score: 4.2 },
-    { criteria: "ความสุภาพ/บริการ", score: 4.4 },
-    { criteria: "สภาพแวดล้อม", score: 4.0 },
-    { criteria: "ความพร้อมรับ", score: 4.2 }
+    { criteria: "การดูแล ความเอาใจใส่", score: 4.1 },
+    { criteria: "ความประทับใจฯ", score: 4.3 },
+    { criteria: "ความน่าเชื่อถือฯ", score: 4.2 },
+    { criteria: "ความรวดเร็วฯ", score: 4.4 },
+    { criteria: "ความถูกต้องฯ", score: 4.7 },
+    { criteria: "ความพร้อมฯ", score: 4.1 },
+    { criteria: "สภาพแวดล้อมฯ", score: 4.3 }
   ],
   "ภาค 17": [
-    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.5 },
-    { criteria: "ความน่าเชื่อถือ", score: 4.3 },
-    { criteria: "ความรวดเร็ว", score: 4.4 },
-    { criteria: "ความสุภาพ/บริการ", score: 4.6 },
-    { criteria: "สภาพแวดล้อม", score: 4.2 },
-    { criteria: "ความพร้อมรับ", score: 4.4 }
+    { criteria: "การดูแล ความเอาใจใส่", score: 4.2 },
+    { criteria: "ความประทับใจฯ", score: 4.4 },
+    { criteria: "ความน่าเชื่อถือฯ", score: 4.1 },
+    { criteria: "ความรวดเร็วฯ", score: 4.2 },
+    { criteria: "ความถูกต้องฯ", score: 4.8 },
+    { criteria: "ความพร้อมฯ", score: 4.0 },
+    { criteria: "สภาพแวดล้อมฯ", score: 4.4 }
   ],
   "ภาค 18": [
-    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.8 },
-    { criteria: "ความน่าเชื่อถือ", score: 4.6 },
-    { criteria: "ความรวดเร็ว", score: 4.7 },
-    { criteria: "ความสุภาพ/บริการ", score: 4.9 },
-    { criteria: "สภาพแวดล้อม", score: 4.5 },
-    { criteria: "ความพร้อมรับ", score: 4.7 }
+    { criteria: "การดูแล ความเอาใจใส่", score: 4.3 },
+    { criteria: "ความประทับใจฯ", score: 4.1 },
+    { criteria: "ความน่าเชื่อถือฯ", score: 4.3 },
+    { criteria: "ความรวดเร็วฯ", score: 4.5 },
+    { criteria: "ความถูกต้องฯ", score: 4.6 },
+    { criteria: "ความพร้อมฯ", score: 4.2 },
+    { criteria: "สภาพแวดล้อมฯ", score: 4.5 }
   ]
 };
+
 
 const regionScores = [
   { region: "ภาค 1", current: 4.2, previous: 4.0 },

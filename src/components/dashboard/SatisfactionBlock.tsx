@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -191,12 +190,28 @@ const regionScores = [
   { region: "ภาค 18", current: 4.1, previous: 4.2 }
 ];
 
+// Calculate average data for "all" option
+const calculateAverageData = () => {
+  const criteriaNames = ["การดูแล ความเอาใจใส่", "ความประทับใจฯ", "ความน่าเชื่อถือฯ", "ความรวดเร็วฯ", "ความถูกต้องฯ", "ความพร้อมฯ", "สภาพแวดล้อมฯ"];
+  
+  return criteriaNames.map(criteria => {
+    const scores = Object.values(satisfactionDataByRegion).map(regionData => 
+      regionData.find(item => item.criteria === criteria)?.score || 0
+    );
+    const average = scores.reduce((sum, score) => sum + score, 0) / scores.length;
+    
+    return { criteria, score: average };
+  });
+};
+
 export const SatisfactionBlock = () => {
-  // Component state for selected region
-  const [selectedRegion, setSelectedRegion] = useState<keyof typeof satisfactionDataByRegion>("all");
+  // Component state for selected region - now includes "all" as a valid option
+  const [selectedRegion, setSelectedRegion] = useState<keyof typeof satisfactionDataByRegion | "all">("all");
 
   // ข้อมูลที่จะแสดงใน RadarChart
-  const satisfactionCriteria = satisfactionDataByRegion[selectedRegion];
+  const satisfactionCriteria = selectedRegion === "all" 
+    ? calculateAverageData()
+    : satisfactionDataByRegion[selectedRegion];
 
   // คำนวณค่าเฉลี่ย
   const averageScore =
@@ -224,7 +239,7 @@ export const SatisfactionBlock = () => {
               <h3 className="font-kanit text-lg font-semibold text-foreground">คะแนนเฉลี่ยตามเกณฑ์</h3>
               <Select 
                 value={selectedRegion}
-                onValueChange={(value) => setSelectedRegion(value as keyof typeof satisfactionDataByRegion)}
+                onValueChange={(value) => setSelectedRegion(value as keyof typeof satisfactionDataByRegion | "all")}
               >
                 <SelectTrigger className="w-[140px] bg-white border border-border rounded-lg text-sm font-kanit">
                   <SelectValue />
@@ -285,7 +300,7 @@ export const SatisfactionBlock = () => {
               <h3 className="font-kanit text-lg font-semibold text-foreground">เปรียบเทียบคะแนนรายภาค (ภาค1–ภาค18)</h3>
                 <Select 
                 value={selectedRegion}
-                onValueChange={(value) => setSelectedRegion(value as keyof typeof satisfactionDataByRegion)}
+                onValueChange={(value) => setSelectedRegion(value as keyof typeof satisfactionDataByRegion | "all")}
               >
                 <SelectTrigger className="w-[140px] bg-white border border-border rounded-lg text-sm font-kanit">
                   <SelectValue />

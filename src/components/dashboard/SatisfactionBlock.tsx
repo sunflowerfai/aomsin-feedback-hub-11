@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -203,14 +202,19 @@ const regionScores = [
   { region: "ภาค 18", current: 4.1, previous: 4.2 }
 ];
 
+// Add type definition that includes "all"
+type RegionType = keyof typeof satisfactionDataByRegion | "all";
+
 export const SatisfactionBlock = () => {
-  // Component state for selected region
-  const [selectedRegion, setSelectedRegion] = useState<keyof typeof satisfactionDataByRegion>("all");
+  // Component state for selected region - fix the type to include "all"
+  const [selectedRegion, setSelectedRegion] = useState<RegionType>("all");
   // Component state for selected topic
   const [selectedTopic, setSelectedTopic] = useState<string>("เลือกทั้งหมด");
 
-  // ข้อมูลที่จะแสดงใน RadarChart
-  const satisfactionCriteria = satisfactionDataByRegion[selectedRegion];
+  // ข้อมูลที่จะแสดงใน RadarChart - handle the "all" case
+  const satisfactionCriteria = selectedRegion === "all" 
+    ? satisfactionDataByRegion["ภาค 1"] // Default to ภาค 1 when "all" is selected
+    : satisfactionDataByRegion[selectedRegion];
   
   // Filter topics data based on selected topic
   const filteredTopicsData = selectedTopic === "เลือกทั้งหมด" 
@@ -244,7 +248,7 @@ export const SatisfactionBlock = () => {
               <h3 className="font-kanit text-lg font-semibold text-foreground">คะแนนเฉลี่ยตามเกณฑ์</h3>
               <Select 
                 value={selectedRegion}
-                onValueChange={(value) => setSelectedRegion(value as keyof typeof satisfactionDataByRegion)}
+                onValueChange={(value) => setSelectedRegion(value as RegionType)}
               >
                 <SelectTrigger className="w-[140px] bg-white border border-border rounded-lg text-sm font-kanit">
                   <SelectValue />

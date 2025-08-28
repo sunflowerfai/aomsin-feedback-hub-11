@@ -273,6 +273,22 @@ export const SatisfactionBlock = () => {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="font-kanit text-lg font-semibold text-foreground">เปรียบเทียบคะแนนรายภาค (ภาค1–ภาค18)</h3>
+                <Select 
+                value={selectedRegion}
+                onValueChange={(value) => setSelectedRegion(value as keyof typeof satisfactionDataByRegion)}
+              >
+                <SelectTrigger className="w-[140px] bg-white border border-border rounded-lg text-sm font-kanit">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="bg-white border border-border rounded-lg shadow-lg z-50">
+                  <SelectItem value="all" className="font-kanit">เลือกทั้งหมด</SelectItem>
+                  {regionScores.map((region) => (
+                    <SelectItem key={region.region} value={region.region} className="font-kanit">
+                      {region.region}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">

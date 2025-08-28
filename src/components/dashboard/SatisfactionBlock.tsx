@@ -281,31 +281,32 @@ export const SatisfactionBlock = () => {
             </div>
           </div>
           
-          {/* Regional Comparison Bar Chart */}
+          {/* Topics Feedback Bar Chart */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="font-kanit text-lg font-semibold text-foreground">เปรียบเทียบคะแนนรายภาค (ภาค1–ภาค18)</h3>
             </div>
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={topicsData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                <BarChart data={topicsData} margin={{ top: 20, right: 30, left: 20, bottom: 80 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" opacity={0.5} />
                   <XAxis 
-                    dataKey="region" 
-                    tick={{ fontSize: 11, fontFamily: 'Kanit' }}
+                    dataKey="topic" 
+                    tick={{ fontSize: 10, fontFamily: 'Kanit' }}
                     stroke="#6B7280"
-                    height={60}
-                    angle={-15}
+                    height={80}
+                    angle={-45}
+                    textAnchor="end"
+                    interval={0}
                   />
                   <YAxis 
-                    domain={[0, 5]}
                     tick={{ fontSize: 12, fontFamily: 'Kanit' }}
                     stroke="#6B7280"
                   />
                   <Tooltip 
                     formatter={(value: any, name: string) => [
-                      `${Number(value).toFixed(1)} คะแนน`, 
-                      name === 'current' ? 'เดือนปัจจุบัน' : 'เดือนก่อน'
+                      `${Number(value)} ครั้ง`, 
+                      name === 'negative' ? 'เดือนก่อน' : 'เดือนปัจจุบัน'
                     ]}
                     labelFormatter={(label) => `${label}`}
                     contentStyle={{
@@ -317,19 +318,19 @@ export const SatisfactionBlock = () => {
                   />
                   <Legend 
                     wrapperStyle={{ fontFamily: 'Kanit', fontSize: '12px' }}
-                    formatter={(value) => value === 'current' ? 'เดือนปัจจุบัน' : 'เดือนก่อน'}
+                    formatter={(value) => value === 'negative' ? 'เดือนก่อน' : 'เดือนปัจจุบัน'}
                   />
                   <Bar 
-                    dataKey="previous" 
+                    dataKey="negative" 
                     fill="#D3D3D3" 
                     radius={[4, 4, 0, 0]}
-                    name="previous"
+                    name="negative"
                   />
                   <Bar 
-                    dataKey="current" 
+                    dataKey="positive" 
                     fill="#DF7AB0" 
                     radius={[4, 4, 0, 0]}
-                    name="current"
+                    name="positive"
                   />
                 </BarChart>
               </ResponsiveContainer>

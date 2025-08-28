@@ -115,6 +115,7 @@ export const FeedbackBlock = () => {
           </div>
           
           {/* Topics Mentioned */}
+{/* Topics Mentioned - Butterfly Chart */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="font-kanit text-lg font-semibold text-foreground">ประเด็นที่ถูกกล่าวถึง</h3>
@@ -137,6 +138,100 @@ export const FeedbackBlock = () => {
                 </Button>
               </div>
             </div>
+            
+            <div className="h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart
+                  data={topicsData}
+                  layout="horizontal"
+                  margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" opacity={0.5} />
+                  <XAxis 
+                    type="number"
+                    domain={[-60, 150]}
+                    tick={{ fontSize: 11, fontFamily: 'Kanit' }}
+                    stroke="#6B7280"
+                    axisLine={false}
+                    tickLine={false}
+                  />
+                  <YAxis 
+                    type="category"
+                    dataKey="topic"
+                    tick={{ fontSize: 12, fontFamily: 'Kanit' }}
+                    stroke="#6B7280"
+                    axisLine={false}
+                    tickLine={false}
+                    width={100}
+                  />
+                  <Tooltip 
+                    formatter={(value: any, name: string) => {
+                      const nameMap: { [key: string]: string } = {
+                        'negative': 'ความคิดเห็นเชิงลบ',
+                        'positive': 'ความคิดเห็นเชิงบวก'
+                      };
+                      return [`${Math.abs(value as number)} ครั้ง`, nameMap[name] || name];
+                    }}
+                    labelFormatter={(label) => `ประเด็น: ${label}`}
+                    contentStyle={{
+                      backgroundColor: 'white',
+                      border: '1px solid #E5E7EB',
+                      borderRadius: '8px',
+                      fontFamily: 'Kanit'
+                    }}
+                  />
+                  <Bar 
+                    dataKey="negative" 
+                    fill="#D14343" 
+                    radius={[0, 4, 4, 0]}
+                    name="negative"
+                  />
+                  <Bar 
+                    dataKey="positive" 
+                    fill="#20A161" 
+                    radius={[4, 0, 0, 4]}
+                    name="positive"
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+            
+            {/* Legend and Summary */}
+            <div className="flex flex-col gap-3">
+              <div className="flex justify-center gap-6">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                  <span className="font-kanit text-sm text-muted-foreground">ความคิดเห็นเชิงลบ</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  <span className="font-kanit text-sm text-muted-foreground">ความคิดเห็นเชิงบวก</span>
+                </div>
+              </div>
+              
+              {/* Quick stats */}
+              <div className="grid grid-cols-3 gap-4 pt-2 border-t border-gray-100">
+                <div className="text-center">
+                  <div className="text-lg font-bold text-green-600 font-kanit">
+                    {topicsData.reduce((sum, topic) => sum + topic.positive, 0)}
+                  </div>
+                  <div className="text-xs text-muted-foreground font-kanit">รวมเชิงบวก</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-lg font-bold text-red-600 font-kanit">
+                    {topicsData.reduce((sum, topic) => sum + Math.abs(topic.negative), 0)}
+                  </div>
+                  <div className="text-xs text-muted-foreground font-kanit">รวมเชิงลบ</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-lg font-bold text-foreground font-kanit">
+                    {topicsData.reduce((sum, topic) => sum + topic.total, 0)}
+                  </div>
+                  <div className="text-xs text-muted-foreground font-kanit">รวมทั้งหมด</div>
+                </div>
+              </div>
+            </div>
+          </div>
             <div className="space-y-3">
               {topicsData.map((topic, index) => (
                 <div key={index} className="flex items-center gap-3">

@@ -115,6 +115,7 @@ export const FeedbackBlock = () => {
           </div>
           
           {/* Topics Mentioned - Butterfly Chart */}
+{/* Topics Mentioned - Butterfly Chart */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="font-kanit text-lg font-semibold text-foreground">ประเด็นที่ถูกกล่าวถึง</h3>
@@ -139,62 +140,103 @@ export const FeedbackBlock = () => {
             </div>
             
             <div className="h-80">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart
-                  data={topicsData}
-                  layout="horizontal"
-                  margin={{ top: 20, right: 40, left: 120, bottom: 20 }}
-                >
-                  <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" opacity={0.5} />
-                  <XAxis 
-                    type="number"
-                    domain={[-50, 130]}
-                    tick={{ fontSize: 11, fontFamily: 'Kanit' }}
-                    stroke="#6B7280"
-                    axisLine={true}
-                    tickLine={true}
-                  />
-                  <YAxis 
-                    type="category"
-                    dataKey="topic"
-                    tick={{ fontSize: 12, fontFamily: 'Kanit' }}
-                    stroke="#6B7280"
-                    axisLine={true}
-                    tickLine={true}
-                    width={110}
-                  />
-                  <Tooltip 
-                    formatter={(value: any, name: string) => {
-                      const nameMap: { [key: string]: string } = {
-                        'negative': 'ความคิดเห็นเชิงลบ',
-                        'positive': 'ความคิดเห็นเชิงบวก'
-                      };
-                      return [`${Math.abs(value as number)} ครั้ง`, nameMap[name] || name];
-                    }}
-                    labelFormatter={(label) => `ประเด็น: ${label}`}
-                    contentStyle={{
-                      backgroundColor: 'white',
-                      border: '1px solid #E5E7EB',
-                      borderRadius: '8px',
-                      fontFamily: 'Kanit'
-                    }}
-                  />
-                  <Bar 
-                    dataKey="negative" 
-                    fill="#D14343" 
-                    radius={[0, 0, 0, 0]}
-                    name="negative"
-                  />
-                  <Bar 
-                    dataKey="positive" 
-                    fill="#20A161" 
-                    radius={[0, 0, 0, 0]}
-                    name="positive"
-                  />
-                </BarChart>
-              </ResponsiveContainer>
+              <div className="flex flex-col h-full">
+                {/* Chart area */}
+                <div className="flex-1 relative">
+                  {/* Y-axis labels */}
+                  <div className="absolute left-0 top-0 bottom-0 w-28 flex flex-col justify-around py-4">
+                    {topicsData.map((item, index) => (
+                      <div key={index} className="text-sm font-kanit text-gray-600 text-right pr-2">
+                        {item.topic}
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {/* Chart bars */}
+                  <div className="ml-28 h-full flex flex-col justify-around py-4">
+                    {topicsData.map((item, index) => (
+                      <div key={index} className="flex items-center h-8 relative">
+                        {/* Negative bar (left side) */}
+                        <div className="flex-1 flex justify-end pr-1">
+                          <div 
+                            className="bg-red-500 h-6 flex items-center justify-center text-white text-xs font-kanit font-medium"
+                            style={{ 
+                              width: `${(Math.abs(item.negative) / 50) * 100}%`,
+                              minWidth: Math.abs(item.negative) > 10 ? 'auto' : '24px'
+                            }}
+                          >
+                            {Math.abs(item.negative)}
+                          </div>
+                        </div>
+                        
+                        {/* Center line */}
+                        <div className="w-px bg-gray-300 h-8"></div>
+                        
+                        {/* Positive bar (right side) */}
+                        <div className="flex-1 flex justify-start pl-1">
+                          <div 
+                            className="bg-green-500 h-6 flex items-center justify-center text-white text-xs font-kanit font-medium"
+                            style={{ 
+                              width: `${(item.positive / 130) * 100}%`,
+                              minWidth: item.positive > 10 ? 'auto' : '24px'
+                            }}
+                          >
+                            {item.positive}
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* X-axis */}
+                <div className="ml-28 flex justify-between text-sm font-kanit text-gray-600 px-2 pt-2">
+                  <span>-50</span>
+                  <span>-25</span>
+                  <span>0</span>
+                  <span>40</span>
+                  <span>85</span>
+                  <span>130</span>
+                </div>
+              </div>
             </div>
             
+            {/* Legend and Summary */}
+            <div className="flex flex-col gap-3">
+              <div className="flex justify-center gap-6">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                  <span className="font-kanit text-sm text-muted-foreground">ความคิดเห็นเชิงลบ</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                  <span className="font-kanit text-sm text-muted-foreground">ความคิดเห็นเชิงบวก</span>
+                </div>
+              </div>
+              
+              {/* Quick stats */}
+              <div className="grid grid-cols-3 gap-4 pt-2 border-t border-gray-100">
+                <div className="text-center">
+                  <div className="text-lg font-bold text-green-600 font-kanit">
+                    {topicsData.reduce((sum, topic) => sum + topic.positive, 0)}
+                  </div>
+                  <div className="text-xs text-muted-foreground font-kanit">รวมเชิงบวก</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-lg font-bold text-red-600 font-kanit">
+                    {topicsData.reduce((sum, topic) => sum + Math.abs(topic.negative), 0)}
+                  </div>
+                  <div className="text-xs text-muted-foreground font-kanit">รวมเชิงลบ</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-lg font-bold text-foreground font-kanit">
+                    {topicsData.reduce((sum, topic) => sum + topic.total, 0)}
+                  </div>
+                  <div className="text-xs text-muted-foreground font-kanit">รวมทั้งหมด</div>
+                </div>
+              </div>
+            </div>
+          </div>
             {/* Legend and Summary */}
             <div className="flex flex-col gap-3">
               <div className="flex justify-center gap-6">

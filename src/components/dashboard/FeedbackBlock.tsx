@@ -290,17 +290,6 @@ export const FeedbackBlock = () => {
                     fontFamily: 'Kanit'
                   }}
                 />
-                <Legend 
-                  wrapperStyle={{ fontFamily: 'Kanit', fontSize: '12px' }}
-                  formatter={(value) => {
-                    const nameMap: { [key: string]: string } = {
-                      'previous': 'เดือนที่แล้ว',
-                      'positive': 'เชิงบวก',
-                      'negative': 'เชิงลบ'
-                    };
-                    return nameMap[value] || value;
-                  }}
-                />
                 <Bar 
                   dataKey="previous" 
                   fill="#9CA3AF" 

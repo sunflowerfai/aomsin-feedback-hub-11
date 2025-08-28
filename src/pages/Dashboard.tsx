@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -25,6 +26,59 @@ const Dashboard = () => {
   const handleMenuSelect = (menuItem: string) => {
     setActiveMenu(menuItem);
     setIsOpen(false);
+  };
+
+  const renderContent = () => {
+    switch (activeMenu) {
+      case "สรุปภาพรวมประจำเดือน":
+        return (
+          <div className="space-y-6">
+            <StatsCards />
+            <SatisfactionBlock />
+            <FormSubmissionBlock />
+            <FeedbackBlock />
+          </div>
+        );
+      case "ผลการดำเนินงานรายพื้นที่":
+        return (
+          <div className="flex items-center justify-center h-64 bg-white rounded-2xl border">
+            <p className="text-muted-foreground font-kanit">ผลการดำเนินงานรายพื้นที่</p>
+          </div>
+        );
+      case "ข้อคิดเห็นของลูกค้า":
+        return (
+          <div className="flex items-center justify-center h-64 bg-white rounded-2xl border">
+            <p className="text-muted-foreground font-kanit">ข้อคิดเห็นของลูกค้า</p>
+          </div>
+        );
+      case "ข้อร้องเรียนรุนแรง":
+        return (
+          <div className="flex items-center justify-center h-64 bg-white rounded-2xl border">
+            <p className="text-muted-foreground font-kanit">ข้อร้องเรียนรุนแรง</p>
+          </div>
+        );
+      case "AI Chat ช่วยวิเคราะห์":
+        return (
+          <div className="flex items-center justify-center h-64 bg-white rounded-2xl border">
+            <p className="text-muted-foreground font-kanit">AI Chat ช่วยวิเคราะห์</p>
+          </div>
+        );
+      case "เอกสารอ้างอิง":
+        return (
+          <div className="flex items-center justify-center h-64 bg-white rounded-2xl border">
+            <p className="text-muted-foreground font-kanit">เอกสารอ้างอิง</p>
+          </div>
+        );
+      default:
+        return (
+          <div className="space-y-6">
+            <StatsCards />
+            <SatisfactionBlock />
+            <FormSubmissionBlock />
+            <FeedbackBlock />
+          </div>
+        );
+    }
   };
 
   return (

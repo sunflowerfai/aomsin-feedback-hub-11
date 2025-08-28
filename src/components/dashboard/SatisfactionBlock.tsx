@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -179,8 +180,6 @@ const regionScores = [
   { region: "ภาค 17", current: 4.4, previous: 4.3 },
   { region: "ภาค 18", current: 4.1, previous: 4.2 }
 ];
-
-const averageScore = satisfactionCriteria.reduce((sum, item) => sum + item.score, 0) / satisfactionCriteria.length;
 
 export const SatisfactionBlock = () => {
   // state สำหรับเก็บภาคที่เลือก

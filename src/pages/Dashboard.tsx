@@ -11,18 +11,22 @@ import { SatisfactionBlock } from "@/components/dashboard/SatisfactionBlock";
 import { FormSubmissionBlock } from "@/components/dashboard/FormSubmissionBlock";
 import { FeedbackBlock } from "@/components/dashboard/FeedbackBlock";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState("สรุปภาพรวมประจำเดือน");
   const [selectedMonth, setSelectedMonth] = useState("2024-08");
   const navigate = useNavigate();
+
   const handleLogout = () => {
     navigate("/");
   };
+
   const handleMenuSelect = (menuItem: string) => {
     setActiveMenu(menuItem);
     setIsOpen(false);
   };
+
   const renderContent = () => {
     switch (activeMenu) {
       case "สรุปภาพรวมประจำเดือน":
@@ -111,6 +115,7 @@ const Dashboard = () => {
           </div>;
     }
   };
+
   return <div className="min-h-screen bg-background">
       {/* Mini Rail Sidebar - Desktop Only */}
       <MiniRailSidebar activeMenu={activeMenu} onMenuSelect={handleMenuSelect} onToggleMainSidebar={() => setIsOpen(!isOpen)} />
@@ -202,9 +207,8 @@ const Dashboard = () => {
         </div>
       </header>
 
-
       {/* Main Content */}
-      <main className="main-content transition-all duration-200 ease-out bg-gray-50 min-h-screen">
+      <main className="main-content transition-all duration-200 ease-out min-h-screen">
         <div className="container mx-auto p-6">
           <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
@@ -289,4 +293,5 @@ const Dashboard = () => {
       </div>
     </div>;
 };
+
 export default Dashboard;

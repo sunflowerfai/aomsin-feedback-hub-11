@@ -170,30 +170,21 @@ const satisfactionDataByRegion = {
   ]
 };
 
-const regionScores = [
-  { region: "ภาค 1", current: 4.2, previous: 4.0 },
-  { region: "ภาค 2", current: 4.1, previous: 4.3 },
-  { region: "ภาค 3", current: 4.4, previous: 4.2 },
-  { region: "ภาค 4", current: 4.0, previous: 3.9 },
-  { region: "ภาค 5", current: 4.3, previous: 4.1 },
-  { region: "ภาค 6", current: 4.2, previous: 4.4 },
-  { region: "ภาค 7", current: 4.5, previous: 4.3 },
-  { region: "ภาค 8", current: 4.1, previous: 4.0 },
-  { region: "ภาค 9", current: 4.3, previous: 4.2 },
-  { region: "ภาค 10", current: 4.0, previous: 3.8 },
-  { region: "ภาค 11", current: 4.4, previous: 4.5 },
-  { region: "ภาค 12", current: 4.2, previous: 4.1 },
-  { region: "ภาค 13", current: 4.1, previous: 4.3 },
-  { region: "ภาค 14", current: 4.3, previous: 4.0 },
-  { region: "ภาค 15", current: 4.0, previous: 4.2 },
-  { region: "ภาค 16", current: 4.2, previous: 4.1 },
-  { region: "ภาค 17", current: 4.4, previous: 4.3 },
-  { region: "ภาค 18", current: 4.1, previous: 4.2 }
-];
+// Categories mapping based on the image
+const categoryMapping = {
+  "เลือกทั้งหมด": "all",
+  "การดูแล ความเอาใจใส่": ["การดูแล ความเอาใจใส่"],
+  "ความน่าเชื่อถือการตอบคำถามและแนะนำ": ["ความน่าเชื่อถือฯ"],
+  "ความรวดเร็วในการให้บริการ": ["ความรวดเร็วฯ"],
+  "ความถูกต้องในการทำธุรกรรม": ["ความถูกต้องฯ"],
+  "ความพร้อมของเครื่องมือ": ["ความพร้อมฯ"],
+  "สภาพแวดล้อมของสาขา": ["สภาพแวดล้อมฯ"],
+  "ความประกับใจในการให้บริการ": ["ความประทับใจฯ"]
+};
 
 export const SatisfactionBlock = () => {
-  // Component state for selected region
   const [selectedRegion, setSelectedRegion] = useState<keyof typeof satisfactionDataByRegion | "all">("all");
+  const [selectedCategory, setSelectedCategory] = useState<string>("เลือกทั้งหมด");
 
   // Calculate average data across all regions when "all" is selected
   const calculateAverageData = () => {
@@ -210,7 +201,39 @@ export const SatisfactionBlock = () => {
     });
   };
 
-  // ข้อมูลที่จะแสดงใน RadarChart
+  // Calculate bar chart data based on selected category
+  const calculateBarChartData = () => {
+    const regions = Object.keys(satisfactionDataByRegion);
+    
+    return regions.map(region => {
+      const regionData = satisfactionDataByRegion[region as keyof typeof satisfactionDataByRegion];
+      
+      let score = 0;
+      if (selectedCategory === "เลือกทั้งหมด") {
+        // Calculate average of all criteria
+        score = regionData.reduce((sum, item) => sum + item.score, 0) / regionData.length;
+      } else {
+        // Find matching criteria for the selected category
+        const matchingCriteria = categoryMapping[selectedCategory as keyof typeof categoryMapping];
+        if (Array.isArray(matchingCriteria)) {
+          const matchingScores = regionData.filter(item => 
+            matchingCriteria.some(criteria => item.criteria.includes(criteria))
+          );
+          score = matchingScores.length > 0 
+            ? matchingScores.reduce((sum, item) => sum + item.score, 0) / matchingScores.length
+            : 0;
+        }
+      }
+      
+      return {
+        region,
+        current: score,
+        previous: score - 0.1 + Math.random() * 0.2 // Mock previous data with slight variation
+      };
+    });
+  };
+
+  // ข้อมูลที่จะแสดงใน RadarChart (ใช้ dropdown ซ้าย)
   const satisfactionCriteria = selectedRegion === "all" 
     ? calculateAverageData()
     : satisfactionDataByRegion[selectedRegion];
@@ -218,6 +241,9 @@ export const SatisfactionBlock = () => {
   // คำนวณค่าเฉลี่ย
   const averageScore =
     satisfactionCriteria.reduce((sum, item) => sum + item.score, 0) / satisfactionCriteria.length;
+
+  // ข้อมูลสำหรับ Bar Chart (ใช้ dropdown ขวา)
+  const barChartData = calculateBarChartData();
 
   return (
     <Card className="rounded-2xl border shadow-card bg-white overflow-hidden">
@@ -248,9 +274,9 @@ export const SatisfactionBlock = () => {
                 </SelectTrigger>
                 <SelectContent className="bg-white border border-border rounded-lg shadow-lg z-50">
                   <SelectItem value="all" className="font-kanit">เลือกทั้งหมด</SelectItem>
-                  {regionScores.map((region) => (
-                    <SelectItem key={region.region} value={region.region} className="font-kanit">
-                      {region.region}
+                  {Object.keys(satisfactionDataByRegion).map((region) => (
+                    <SelectItem key={region} value={region} className="font-kanit">
+                      {region}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -299,19 +325,18 @@ export const SatisfactionBlock = () => {
           {/* Regional Comparison Bar Chart */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="font-kanit text-lg font-semibold text-foreground">เปรียบเทียบคะแนนรายภาค </h3>
-                <Select 
-                value={selectedRegion}
-                onValueChange={(value) => setSelectedRegion(value as keyof typeof satisfactionDataByRegion | "all")}
+              <h3 className="font-kanit text-lg font-semibold text-foreground">เปรียบเทียบคะแนนรายภาค (ภาค1–ภาค18)</h3>
+              <Select 
+                value={selectedCategory}
+                onValueChange={setSelectedCategory}
               >
-                <SelectTrigger className="w-[140px] bg-white border border-border rounded-lg text-sm font-kanit">
+                <SelectTrigger className="w-[200px] bg-white border border-border rounded-lg text-sm font-kanit">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="bg-white border border-border rounded-lg shadow-lg z-50">
-                  <SelectItem value="all" className="font-kanit">เลือกทั้งหมด</SelectItem>
-                  {regionScores.map((region) => (
-                    <SelectItem key={region.region} value={region.region} className="font-kanit">
-                      {region.region}
+                  {Object.keys(categoryMapping).map((category) => (
+                    <SelectItem key={category} value={category} className="font-kanit">
+                      {category}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -319,7 +344,7 @@ export const SatisfactionBlock = () => {
             </div>
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={regionScores} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                <BarChart data={barChartData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" opacity={0.5} />
                   <XAxis 
                     dataKey="region" 

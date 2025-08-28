@@ -344,7 +344,15 @@ export const SatisfactionBlock = () => {
           </div>
         </div>
         
-              <SelectTrigger className="w[220px] bg-white border border-border rounded-lg text-sm font-kanit">
+        {/* Topics Sentiment Analysis */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h3 className="font-kanit text-lg font-semibold text-foreground">การวิเคราะห์ความเห็นตามหัวข้อ</h3>
+            <Select 
+              value={selectedTopic}
+              onValueChange={setSelectedTopic}
+            >
+              <SelectTrigger className="w-[220px] bg-white border border-border rounded-lg text-sm font-kanit">
                 <SelectValue placeholder="เลือกหัวข้อ" />
               </SelectTrigger>
               <SelectContent className="bg-white border border-border rounded-lg shadow-lg z-50">

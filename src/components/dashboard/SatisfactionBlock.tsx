@@ -325,7 +325,7 @@ export const SatisfactionBlock = () => {
           {/* Regional Comparison Bar Chart */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h3 className="font-kanit text-lg font-semibold text-foreground">เปรียบเทียบคะแนนรายภาค (ภาค1–ภาค18)</h3>
+              <h3 className="font-kanit text-lg font-semibold text-foreground">เปรียบเทียบคะแนนรายภาค </h3>
               <Select 
                 value={selectedCategory}
                 onValueChange={setSelectedCategory}

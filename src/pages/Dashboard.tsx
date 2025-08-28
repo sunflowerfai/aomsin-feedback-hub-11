@@ -11,27 +11,22 @@ import { SatisfactionBlock } from "@/components/dashboard/SatisfactionBlock";
 import { FormSubmissionBlock } from "@/components/dashboard/FormSubmissionBlock";
 import { FeedbackBlock } from "@/components/dashboard/FeedbackBlock";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState("สรุปภาพรวมประจำเดือน");
   const [selectedMonth, setSelectedMonth] = useState("2024-08");
   const navigate = useNavigate();
-
   const handleLogout = () => {
     navigate("/");
   };
-
   const handleMenuSelect = (menuItem: string) => {
     setActiveMenu(menuItem);
     setIsOpen(false);
   };
-
   const renderContent = () => {
     switch (activeMenu) {
-        case "สรุปภาพรวมประจำเดือน":
-        return (
-          <div className="space-y-8">
+      case "สรุปภาพรวมประจำเดือน":
+        return <div className="space-y-8">
             {/* Main Dashboard Content */}
             <div className="space-y-8">
               <FormSubmissionBlock />
@@ -42,55 +37,10 @@ const Dashboard = () => {
             {/* Tabs Section */}
             <div className="mt-12">
               <Tabs defaultValue="overview" className="w-full">
-                <TabsList className="grid w-full grid-cols-4 h-12 mb-8">
-                  <TabsTrigger 
-                    value="overview" 
-                    className="font-kanit text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-                  >
-                    ภาพรวมทั้งหมด
-                  </TabsTrigger>
-                  <TabsTrigger 
-                    value="regional" 
-                    className="font-kanit text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-                  >
-                    เปรียบเทียบรายภาค
-                  </TabsTrigger>
-                  <TabsTrigger 
-                    value="analysis" 
-                    className="font-kanit text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-                  >
-                    การวิเคราะห์เชิงลึก
-                  </TabsTrigger>
-                  <TabsTrigger 
-                    value="trends" 
-                    className="font-kanit text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-                  >
-                    แนวโน้มและคาดการณ์
-                  </TabsTrigger>
-                </TabsList>
+                
                 
                 <TabsContent value="overview" className="space-y-6">
-                  <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6">
-                    <div className="h-2 bg-gradient-to-r from-[#DF7AB0] to-[#F9B5D3] rounded-t-xl -mt-6 -mx-6 mb-6"></div>
-                    <h3 className="text-xl font-bold font-kanit text-foreground mb-4">ภาพรวมข้อมูลทั้งหมด</h3>
-                    <p className="text-muted-foreground font-kanit mb-6">
-                      สรุปข้อมูลการให้บริการและความพึงพอใจของลูกค้าทั้งหมด
-                    </p>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                      <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
-                        <div className="text-2xl font-bold text-blue-600 font-kanit">95.8%</div>
-                        <div className="text-sm text-blue-700 font-kanit">ความพึงพอใจโดยรวม</div>
-                      </div>
-                      <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg">
-                        <div className="text-2xl font-bold text-green-600 font-kanit">2,847</div>
-                        <div className="text-sm text-green-700 font-kanit">ข้อเสนอแนะเชิงบวก</div>
-                      </div>
-                      <div className="text-center p-4 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg">
-                        <div className="text-2xl font-bold text-orange-600 font-kanit">234</div>
-                        <div className="text-sm text-orange-700 font-kanit">ข้อร้องเรียนที่ต้องติดตาม</div>
-                      </div>
-                    </div>
-                  </div>
+                  
                 </TabsContent>
                 
                 <TabsContent value="regional" className="space-y-6">
@@ -151,28 +101,19 @@ const Dashboard = () => {
                 </TabsContent>
               </Tabs>
             </div>
-          </div>
-        );
+          </div>;
       default:
-        return (
-          <div className="flex items-center justify-center h-64">
+        return <div className="flex items-center justify-center h-64">
             <div className="text-center space-y-2">
               <h2 className="text-2xl font-semibold text-muted-foreground">{activeMenu}</h2>
               <p className="text-muted-foreground">เนื้อหาของส่วนนี้จะพัฒนาในเร็วๆ นี้</p>
             </div>
-          </div>
-        );
+          </div>;
     }
   };
-
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       {/* Mini Rail Sidebar - Desktop Only */}
-      <MiniRailSidebar 
-        activeMenu={activeMenu}
-        onMenuSelect={handleMenuSelect}
-        onToggleMainSidebar={() => setIsOpen(!isOpen)}
-      />
+      <MiniRailSidebar activeMenu={activeMenu} onMenuSelect={handleMenuSelect} onToggleMainSidebar={() => setIsOpen(!isOpen)} />
 
       {/* Top Bar */}
       <header className="topbar px-6">
@@ -182,24 +123,14 @@ const Dashboard = () => {
           <div className="md:hidden">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  className="text-white hover:bg-white/20 w-11 h-11 rounded-2xl"
-                  aria-label="เปิดเมนู"
-                >
+                <Button variant="ghost" size="icon" className="text-white hover:bg-white/20 w-11 h-11 rounded-2xl" aria-label="เปิดเมนู">
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="w-80">
                 <SheetHeader className="flex flex-row items-center justify-between">
                   <SheetTitle className="font-kanit">เมนูหลัก</SheetTitle>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setIsOpen(false)}
-                    className="h-6 w-6"
-                  >
+                  <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="h-6 w-6">
                     <X className="h-4 w-4" />
                   </Button>
                 </SheetHeader>
@@ -221,12 +152,7 @@ const Dashboard = () => {
               <SheetContent side="left" className="w-80 ml-[72px]">
                 <SheetHeader className="flex flex-row items-center justify-between">
                   <SheetTitle className="font-kanit">เมนูหลัก</SheetTitle>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setIsOpen(false)}
-                    className="h-6 w-6"
-                  >
+                  <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} className="h-6 w-6">
                     <X className="h-4 w-4" />
                   </Button>
                 </SheetHeader>
@@ -260,27 +186,13 @@ const Dashboard = () => {
               </p>
             </div>
             <div className="flex items-center gap-2">
-              <Button 
-                variant="ghost" 
-                size="icon"
-                className="text-white hover:bg-pink-400/30 w-10 h-10 rounded-full border border-white/20 transition-colors duration-200"
-                aria-label="การตั้งค่า"
-              >
+              <Button variant="ghost" size="icon" className="text-white hover:bg-pink-400/30 w-10 h-10 rounded-full border border-white/20 transition-colors duration-200" aria-label="การตั้งค่า">
                 <Settings className="h-4 w-4" />
               </Button>
-              <Button 
-                variant="ghost" 
-                size="icon"
-                className="text-white hover:bg-pink-400/30 w-10 h-10 rounded-full border border-white/20 transition-colors duration-200"
-                aria-label="ประวัติ"
-              >
+              <Button variant="ghost" size="icon" className="text-white hover:bg-pink-400/30 w-10 h-10 rounded-full border border-white/20 transition-colors duration-200" aria-label="ประวัติ">
                 <RotateCcw className="h-4 w-4" />
               </Button>
-              <Button 
-                variant="ghost" 
-                onClick={handleLogout}
-                className="text-white hover:bg-pink-400/30 flex items-center gap-2 font-kanit px-4 py-2 rounded-full border border-white/20 transition-colors duration-200"
-              >
+              <Button variant="ghost" onClick={handleLogout} className="text-white hover:bg-pink-400/30 flex items-center gap-2 font-kanit px-4 py-2 rounded-full border border-white/20 transition-colors duration-200">
                 <LogOut className="h-4 w-4" />
                 ออกจากระบบ
               </Button>
@@ -301,16 +213,16 @@ const Dashboard = () => {
                 ติดตามและวิเคราะห์ข้อมูลภาพรวมของการให้บริการแต่ละเดือน
               </p>
             </div>
-            {activeMenu === "สรุปภาพรวมประจำเดือน" && (
-              <MonthSelector value={selectedMonth} onChange={setSelectedMonth} />
-            )}
+            {activeMenu === "สรุปภาพรวมประจำเดือน" && <MonthSelector value={selectedMonth} onChange={setSelectedMonth} />}
           </div>
           {renderContent()}
         </div>
       </main>
 
       {/* Footer */}
-      <footer style={{ backgroundColor: '#ECEFF1' }} className="border-t border-border py-3 px-6">
+      <footer style={{
+      backgroundColor: '#ECEFF1'
+    }} className="border-t border-border py-3 px-6">
         <div className="container mx-auto">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             {/* Left/Center Content */}
@@ -319,27 +231,15 @@ const Dashboard = () => {
                 © 2024 Customer Dashboard. สงวนลิขสิทธิ์.
               </span>
               <div className="flex flex-col sm:flex-row items-center gap-2 text-sm">
-                <a 
-                  href="#" 
-                  className="text-muted-foreground font-kanit hover:text-primary hover:underline transition-colors duration-200"
-                  aria-label="นโยบายความเป็นส่วนตัว"
-                >
+                <a href="#" className="text-muted-foreground font-kanit hover:text-primary hover:underline transition-colors duration-200" aria-label="นโยบายความเป็นส่วนตัว">
                   นโยบายความเป็นส่วนตัว
                 </a>
                 <span className="hidden sm:inline text-muted-foreground">|</span>
-                <a 
-                  href="#" 
-                  className="text-muted-foreground font-kanit hover:text-primary hover:underline transition-colors duration-200"
-                  aria-label="เงื่อนไขการใช้งาน"
-                >
+                <a href="#" className="text-muted-foreground font-kanit hover:text-primary hover:underline transition-colors duration-200" aria-label="เงื่อนไขการใช้งาน">
                   เงื่อนไขการใช้งาน
                 </a>
                 <span className="hidden sm:inline text-muted-foreground">|</span>
-                <a 
-                  href="#" 
-                  className="text-muted-foreground font-kanit hover:text-primary hover:underline transition-colors duration-200"
-                  aria-label="ติดต่อเรา"
-                >
+                <a href="#" className="text-muted-foreground font-kanit hover:text-primary hover:underline transition-colors duration-200" aria-label="ติดต่อเรา">
                   ติดต่อเรา
                 </a>
               </div>
@@ -364,25 +264,13 @@ const Dashboard = () => {
           <div className="p-4">
             {/* Three gradient boxes */}
             <div className="grid grid-cols-1 xs:grid-cols-3 gap-3 mb-4">
-              <a 
-                href="#" 
-                className="block bg-gradient-to-r from-[#D8218C] via-[#DF7AB0] to-[#F9B5D3] text-white font-kanit font-medium text-center py-3 px-2 rounded-xl hover:opacity-95 hover:shadow-lg transition-all duration-200"
-                aria-label="นโยบายความเป็นส่วนตัว"
-              >
+              <a href="#" className="block bg-gradient-to-r from-[#D8218C] via-[#DF7AB0] to-[#F9B5D3] text-white font-kanit font-medium text-center py-3 px-2 rounded-xl hover:opacity-95 hover:shadow-lg transition-all duration-200" aria-label="นโยบายความเป็นส่วนตัว">
                 นโยบายความเป็นส่วนตัว
               </a>
-              <a 
-                href="#" 
-                className="block bg-gradient-to-r from-[#D8218C] via-[#DF7AB0] to-[#F9B5D3] text-white font-kanit font-medium text-center py-3 px-2 rounded-xl hover:opacity-95 hover:shadow-lg transition-all duration-200"
-                aria-label="เงื่อนไขการใช้งาน"
-              >
+              <a href="#" className="block bg-gradient-to-r from-[#D8218C] via-[#DF7AB0] to-[#F9B5D3] text-white font-kanit font-medium text-center py-3 px-2 rounded-xl hover:opacity-95 hover:shadow-lg transition-all duration-200" aria-label="เงื่อนไขการใช้งาน">
                 เงื่อนไขการใช้งาน
               </a>
-              <a 
-                href="#" 
-                className="block bg-gradient-to-r from-[#D8218C] via-[#DF7AB0] to-[#F9B5D3] text-white font-kanit font-medium text-center py-3 px-2 rounded-xl hover:opacity-95 hover:shadow-lg transition-all duration-200"
-                aria-label="ติดต่อเรา"
-              >
+              <a href="#" className="block bg-gradient-to-r from-[#D8218C] via-[#DF7AB0] to-[#F9B5D3] text-white font-kanit font-medium text-center py-3 px-2 rounded-xl hover:opacity-95 hover:shadow-lg transition-all duration-200" aria-label="ติดต่อเรา">
                 ติดต่อเรา
               </a>
             </div>
@@ -399,8 +287,6 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-    </div>
-  );
+    </div>;
 };
-
 export default Dashboard;

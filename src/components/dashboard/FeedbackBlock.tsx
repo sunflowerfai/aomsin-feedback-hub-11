@@ -10,13 +10,32 @@ const sentimentData = [
 ];
 
 const topicsData = [
-  { topic: "คุณภาพการบริการ", negative: -45, positive: 128, total: 173 },
-  { topic: "ความรวดเร็ว", negative: -32, positive: 95, total: 127 },
-  { topic: "สภาพแวดล้อม", negative: -28, positive: 87, total: 115 },
-  { topic: "ความสะดวก", negative: -23, positive: 72, total: 95 },
-  { topic: "ระบบคิว", negative: -41, positive: 56, total: 97 },
-  { topic: "พนักงาน", negative: -18, positive: 89, total: 107 }
+  { topic: "แสงสว่าง", negative: -158, positive: 349, total: 507 },
+  { topic: "ความเอาใจใส่ในการให้บริการลูกค้า", negative: -48, positive: 288, total: 336 },
+  { topic: "ความสามารถในการตอบคำถามหรือให้คำแนะนำ", negative: -37, positive: 294, total: 331 },
+  { topic: "ความเรียบง่ายข้อมูล", negative: -40, positive: 279, total: 319 },
+  { topic: "ความพร้อมในการให้บริการ", negative: -30, positive: 278, total: 308 },
+  { topic: "ที่จอดรถ", negative: -119, positive: 264, total: 383 },
+  { topic: "เครื่องออกบัตรคิว", negative: -142, positive: 245, total: 387 },
+  { topic: "ความประทับใจในการให้บริการ", negative: -151, positive: 241, total: 392 },
+  { topic: "การเอาเปรียบ", negative: -47, positive: 229, total: 276 },
+  { topic: "ระยะเวลาอนุมัติ", negative: -152, positive: 78, total: 230 },
+  { topic: "ทำเลพื้นที่และควาบคับคั่ง", negative: -39, positive: 155, total: 194 },
+  { topic: "ระบบยืนยันตัวตน", negative: -114, positive: 188, total: 302 },
+  { topic: "การบังคับ", negative: -35, positive: 152, total: 187 },
+  { topic: "การรบกวน", negative: -30, positive: 112, total: 142 },
+  { topic: "เครื่องปรับสมุด", negative: -124, positive: 135, total: 259 },
+  { topic: "ความถูกต้องในการให้บริการ", negative: -28, positive: 127, total: 155 },
+  { topic: "รายละเอียดผลิตภัณฑ์", negative: -146, positive: 120, total: 266 },
+  { topic: "ระบบ Core ของธนาคาร", negative: -47, positive: 118, total: 165 },
+  { topic: "ATM ADM CDM", negative: -66, positive: 48, total: 114 },
+  { topic: "ที่นั่งรอ", negative: -125, positive: 62, total: 187 }
 ];
+
+// จัดเรียงตาม total จากมากไปน้อย
+const sortedTopicsData = topicsData.sort((a, b) => b.total - a.total);
+
+console.log(sortedTopicsData);
 
 const regionFeedbackData = [
   { region: "ภาค 1", previous: 45, positive: 67, negative: 23 },

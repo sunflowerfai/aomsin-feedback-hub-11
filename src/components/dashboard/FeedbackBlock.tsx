@@ -1,5 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { TrendingUp, Filter, ArrowUpRight, ArrowDownRight } from "lucide-react";
 import { useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
@@ -159,18 +160,17 @@ export const FeedbackBlock = () => {
             
             <div className="h-80">
               <div className="flex flex-col h-full">
-                {/* Chart area */}
-                <div className="flex-1 relative">
-                  {/* Chart bars */}
-                  <div className="h-full flex flex-col justify-around py-4">
-                    {topicsData.map((item, index) => (
+                {/* Chart area with scroll */}
+                <ScrollArea className="flex-1">
+                  <div className="space-y-2 py-4">
+                    {sortedTopicsData.map((item, index) => (
                       <div key={index} className="flex items-center h-8 relative">
                         {/* Negative bar (left side) */}
                         <div className="flex-1 flex justify-end pr-1">
                           <div 
                             className="bg-red-500 h-6 flex items-center justify-center text-white text-xs font-kanit font-medium"
                             style={{ 
-                              width: `${(Math.abs(item.negative) / 50) * 100}%`,
+                              width: `${(Math.abs(item.negative) / 200) * 100}%`,
                               minWidth: Math.abs(item.negative) > 10 ? 'auto' : '24px'
                             }}
                           >
@@ -179,9 +179,9 @@ export const FeedbackBlock = () => {
                         </div>
                         
                         {/* Center area with topic name */}
-                        <div className="w-32 flex items-center justify-center px-2">
+                        <div className="w-40 flex items-center justify-center px-2 flex-shrink-0">
                           <div className="w-px bg-gray-300 h-8 absolute"></div>
-                          <span className="text-sm font-kanit text-gray-700 font-medium bg-white px-2 relative z-10 text-center">
+                          <span className="text-xs font-kanit text-gray-700 font-medium bg-white px-1 relative z-10 text-center leading-tight">
                             {item.topic}
                           </span>
                         </div>
@@ -191,7 +191,7 @@ export const FeedbackBlock = () => {
                           <div 
                             className="bg-green-500 h-6 flex items-center justify-center text-white text-xs font-kanit font-medium"
                             style={{ 
-                              width: `${(item.positive / 130) * 100}%`,
+                              width: `${(item.positive / 400) * 100}%`,
                               minWidth: item.positive > 10 ? 'auto' : '24px'
                             }}
                           >
@@ -201,16 +201,16 @@ export const FeedbackBlock = () => {
                       </div>
                     ))}
                   </div>
-                </div>
+                </ScrollArea>
                 
                 {/* X-axis */}
                 <div className="flex justify-between text-sm font-kanit text-gray-600 px-2 pt-2">
-                  <span>-50</span>
-                  <span>-25</span>
+                  <span>-200</span>
+                  <span>-100</span>
                   <span>0</span>
-                  <span>40</span>
-                  <span>85</span>
-                  <span>130</span>
+                  <span>100</span>
+                  <span>200</span>
+                  <span>400</span>
                 </div>
               </div>
             </div>

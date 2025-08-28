@@ -292,47 +292,27 @@ export const SatisfactionBlock = () => {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="font-kanit text-lg font-semibold text-foreground">เปรียบเทียบคะแนนรายภาค (ภาค1–ภาค18)</h3>
-              <Select 
-                value={selectedTopic}
-                onValueChange={setSelectedTopic}
-              >
-                <SelectTrigger className="w-[220px] bg-white border border-border rounded-lg text-sm font-kanit">
-                  <SelectValue placeholder="เลือกหัวข้อ" />
-                </SelectTrigger>
-                <SelectContent className="bg-white border border-border rounded-lg shadow-lg z-50">
-                  <SelectItem value="เลือกทั้งหมด" className="font-kanit">เลือกทั้งหมด</SelectItem>
-                  {topicsData.map((item) => (
-                    <SelectItem key={item.topic} value={item.topic} className="font-kanit">
-                      {item.topic}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
             </div>
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart 
-                  data={filteredTopicsData} 
-                  margin={{ top: 20, right: 30, left: 20, bottom: 100 }}
-                  layout="horizontal"
-                >
+                <BarChart data={regionScores} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" opacity={0.5} />
                   <XAxis 
-                    type="number"
+                    dataKey="region" 
+                    tick={{ fontSize: 11, fontFamily: 'Kanit' }}
+                    stroke="#6B7280"
+                    height={60}
+                    angle={-15}
+                  />
+                  <YAxis 
+                    domain={[0, 5]}
                     tick={{ fontSize: 12, fontFamily: 'Kanit' }}
                     stroke="#6B7280"
                   />
-                  <YAxis 
-                    type="category"
-                    dataKey="topic" 
-                    tick={{ fontSize: 10, fontFamily: 'Kanit' }}
-                    stroke="#6B7280"
-                    width={180}
-                  />
                   <Tooltip 
                     formatter={(value: any, name: string) => [
-                      `${value} ความคิดเห็น`, 
-                      name === 'negative' ? 'ความคิดเห็นเชิงลบ' : 'ความคิดเห็นเชิงบวก'
+                      `${Number(value).toFixed(1)} คะแนน`, 
+                      name === 'current' ? 'เดือนปัจจุบัน' : 'เดือนก่อน'
                     ]}
                     labelFormatter={(label) => `${label}`}
                     contentStyle={{
@@ -344,23 +324,98 @@ export const SatisfactionBlock = () => {
                   />
                   <Legend 
                     wrapperStyle={{ fontFamily: 'Kanit', fontSize: '12px' }}
-                    formatter={(value) => value === 'negative' ? 'ความคิดเห็นเชิงลบ' : 'ความคิดเห็นเชิงบวก'}
+                    formatter={(value) => value === 'current' ? 'เดือนปัจจุบัน' : 'เดือนก่อน'}
                   />
                   <Bar 
-                    dataKey="negative" 
-                    fill="#EF4444" 
-                    radius={[0, 4, 4, 0]}
-                    name="negative"
+                    dataKey="previous" 
+                    fill="#D3D3D3" 
+                    radius={[4, 4, 0, 0]}
+                    name="previous"
                   />
                   <Bar 
-                    dataKey="positive" 
-                    fill="#10B981" 
-                    radius={[0, 4, 4, 0]}
-                    name="positive"
+                    dataKey="current" 
+                    fill="#DF7AB0" 
+                    radius={[4, 4, 0, 0]}
+                    name="current"
                   />
                 </BarChart>
               </ResponsiveContainer>
             </div>
+          </div>
+        </div>
+        
+        {/* Service Topics Analysis */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h3 className="font-kanit text-lg font-semibold text-foreground">การวิเคราะห์หัวข้อบริการ</h3>
+            <Select 
+              value={selectedTopic}
+              onValueChange={setSelectedTopic}
+            >
+              <SelectTrigger className="w-[220px] bg-white border border-border rounded-lg text-sm font-kanit">
+                <SelectValue placeholder="เลือกหัวข้อ" />
+              </SelectTrigger>
+              <SelectContent className="bg-white border border-border rounded-lg shadow-lg z-50">
+                <SelectItem value="เลือกทั้งหมด" className="font-kanit">เลือกทั้งหมด</SelectItem>
+                {topicsData.map((item) => (
+                  <SelectItem key={item.topic} value={item.topic} className="font-kanit">
+                    {item.topic}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="h-96">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart 
+                data={filteredTopicsData} 
+                margin={{ top: 20, right: 30, left: 20, bottom: 100 }}
+                layout="horizontal"
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" opacity={0.5} />
+                <XAxis 
+                  type="number"
+                  tick={{ fontSize: 12, fontFamily: 'Kanit' }}
+                  stroke="#6B7280"
+                />
+                <YAxis 
+                  type="category"
+                  dataKey="topic" 
+                  tick={{ fontSize: 10, fontFamily: 'Kanit' }}
+                  stroke="#6B7280"
+                  width={180}
+                />
+                <Tooltip 
+                  formatter={(value: any, name: string) => [
+                    `${value} ความคิดเห็น`, 
+                    name === 'negative' ? 'ความคิดเห็นเชิงลบ' : 'ความคิดเห็นเชิงบวก'
+                  ]}
+                  labelFormatter={(label) => `${label}`}
+                  contentStyle={{
+                    backgroundColor: 'white',
+                    border: '1px solid #E5E7EB',
+                    borderRadius: '8px',
+                    fontFamily: 'Kanit'
+                  }}
+                />
+                <Legend 
+                  wrapperStyle={{ fontFamily: 'Kanit', fontSize: '12px' }}
+                  formatter={(value) => value === 'negative' ? 'ความคิดเห็นเชิงลบ' : 'ความคิดเห็นเชิงบวก'}
+                />
+                <Bar 
+                  dataKey="negative" 
+                  fill="#EF4444" 
+                  radius={[0, 4, 4, 0]}
+                  name="negative"
+                />
+                <Bar 
+                  dataKey="positive" 
+                  fill="#10B981" 
+                  radius={[0, 4, 4, 0]}
+                  name="positive"
+                />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
       </CardContent>

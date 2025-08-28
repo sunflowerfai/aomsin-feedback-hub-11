@@ -199,9 +199,10 @@ export const SatisfactionBlock = () => {
   // ข้อมูลที่จะแสดงใน RadarChart
   const satisfactionCriteria = satisfactionDataByRegion[selectedRegion];
 
-  // คำนวณค่าเฉลี่ย
-  const averageScore =
-    satisfactionCriteria.reduce((sum, item) => sum + item.score, 0) / satisfactionCriteria.length;
+  // คำนวณค่าเฉลี่ย - add null check to prevent errors
+  const averageScore = satisfactionCriteria && satisfactionCriteria.length > 0
+    ? satisfactionCriteria.reduce((sum, item) => sum + item.score, 0) / satisfactionCriteria.length
+    : 0;
 
   return (
     <Card className="rounded-2xl border shadow-card bg-white overflow-hidden">

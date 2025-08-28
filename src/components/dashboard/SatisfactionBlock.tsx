@@ -182,7 +182,7 @@ const regionScores = [
 ];
 
 export const SatisfactionBlock = () => {
-  // state สำหรับเก็บภาคที่เลือก
+  // Component state for selected region
   const [selectedRegion, setSelectedRegion] = useState<keyof typeof satisfactionDataByRegion>("all");
 
   // ข้อมูลที่จะแสดงใน RadarChart

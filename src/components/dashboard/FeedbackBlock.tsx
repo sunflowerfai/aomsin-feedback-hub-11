@@ -115,35 +115,25 @@ export const FeedbackBlock = () => {
           </div>
           
           {/* Topics Mentioned - Butterfly Chart */}
+{/* Topics Mentioned - Butterfly Chart */}
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="font-kanit text-lg font-semibold text-foreground">ประเด็นที่ถูกกล่าวถึง</h3>
-              <div className="flex items-center gap-2">
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  className="w-8 h-8 rounded-full text-muted-foreground hover:text-foreground transition-colors duration-200"
-                  aria-label="เรียงลำดับ"
-                >
-                  <TrendingUp className="w-4 h-4" />
-                </Button>
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  className="w-8 h-8 rounded-full text-muted-foreground hover:text-foreground transition-colors duration-200"
-                  aria-label="กรอง"
-                >
-                  <Filter className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
+            <h3 className="font-kanit text-lg font-semibold text-foreground">ประเด็นที่ถูกกล่าวถึง</h3>
             
             <div className="h-80">
               <div className="flex flex-col h-full">
                 {/* Chart area */}
                 <div className="flex-1 relative">
+                  {/* Y-axis labels */}
+                  <div className="absolute left-0 top-0 bottom-0 w-28 flex flex-col justify-around py-4">
+                    {topicsData.map((item, index) => (
+                      <div key={index} className="text-sm font-kanit text-gray-600 text-right pr-2">
+                        {item.topic}
+                      </div>
+                    ))}
+                  </div>
+                  
                   {/* Chart bars */}
-                  <div className="h-full flex flex-col justify-around py-4">
+                  <div className="ml-28 h-full flex flex-col justify-around py-4">
                     {topicsData.map((item, index) => (
                       <div key={index} className="flex items-center h-8 relative">
                         {/* Negative bar (left side) */}
@@ -159,13 +149,8 @@ export const FeedbackBlock = () => {
                           </div>
                         </div>
                         
-                        {/* Center area with topic name */}
-                        <div className="w-32 flex items-center justify-center px-2">
-                          <div className="w-px bg-gray-300 h-8 absolute"></div>
-                          <span className="text-sm font-kanit text-gray-700 font-medium bg-white px-2 relative z-10 text-center">
-                            {item.topic}
-                          </span>
-                        </div>
+                        {/* Center line */}
+                        <div className="w-px bg-gray-300 h-8"></div>
                         
                         {/* Positive bar (right side) */}
                         <div className="flex-1 flex justify-start pl-1">
@@ -185,7 +170,7 @@ export const FeedbackBlock = () => {
                 </div>
                 
                 {/* X-axis */}
-                <div className="flex justify-between text-sm font-kanit text-gray-600 px-2 pt-2">
+                <div className="ml-28 flex justify-between text-sm font-kanit text-gray-600 px-2 pt-2">
                   <span>-50</span>
                   <span>-25</span>
                   <span>0</span>

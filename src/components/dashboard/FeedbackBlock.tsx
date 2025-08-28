@@ -282,7 +282,7 @@ export const FeedbackBlock = () => {
                       'positive': 'เชิงบวก',
                       'negative': 'เชิงลบ'
                     };
-                    return [`${value} ครั้ง`, nameMap[name]  name];
+                    return [`${value} ครั้ง`, nameMap[name] || name];
                   }}
                   labelFormatter={(label) => `${label}`}
                   contentStyle={{
@@ -300,7 +300,7 @@ export const FeedbackBlock = () => {
                       'positive': 'เชิงบวก',
                       'negative': 'เชิงลบ'
                     };
-                    return nameMap[value]  value;
+                    return nameMap[value] || value;
                   }}
                 />
                 <Bar 

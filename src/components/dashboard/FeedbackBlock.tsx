@@ -117,27 +117,7 @@ export const FeedbackBlock = () => {
           {/* Topics Mentioned - Butterfly Chart */}
 {/* Topics Mentioned - Butterfly Chart */}
           <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="font-kanit text-lg font-semibold text-foreground">ประเด็นที่ถูกกล่าวถึง</h3>
-              <div className="flex items-center gap-2">
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  className="w-8 h-8 rounded-full text-muted-foreground hover:text-foreground transition-colors duration-200"
-                  aria-label="เรียงลำดับ"
-                >
-                  <TrendingUp className="w-4 h-4" />
-                </Button>
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  className="w-8 h-8 rounded-full text-muted-foreground hover:text-foreground transition-colors duration-200"
-                  aria-label="กรอง"
-                >
-                  <Filter className="w-4 h-4" />
-                </Button>
-              </div>
-            </div>
+            <h3 className="font-kanit text-lg font-semibold text-foreground">ประเด็นที่ถูกกล่าวถึง</h3>
             
             <div className="h-80">
               <div className="flex flex-col h-full">

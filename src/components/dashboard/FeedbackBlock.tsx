@@ -237,42 +237,6 @@ export const FeedbackBlock = () => {
               </div>
             </div>
           </div>
-            {/* Legend and Summary */}
-            <div className="flex flex-col gap-3">
-              <div className="flex justify-center gap-6">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                  <span className="font-kanit text-sm text-muted-foreground">ความคิดเห็นเชิงลบ</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                  <span className="font-kanit text-sm text-muted-foreground">ความคิดเห็นเชิงบวก</span>
-                </div>
-              </div>
-              
-              {/* Quick stats */}
-              <div className="grid grid-cols-3 gap-4 pt-2 border-t border-gray-100">
-                <div className="text-center">
-                  <div className="text-lg font-bold text-green-600 font-kanit">
-                    {topicsData.reduce((sum, topic) => sum + topic.positive, 0)}
-                  </div>
-                  <div className="text-xs text-muted-foreground font-kanit">รวมเชิงบวก</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-lg font-bold text-red-600 font-kanit">
-                    {topicsData.reduce((sum, topic) => sum + Math.abs(topic.negative), 0)}
-                  </div>
-                  <div className="text-xs text-muted-foreground font-kanit">รวมเชิงลบ</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-lg font-bold text-foreground font-kanit">
-                    {topicsData.reduce((sum, topic) => sum + topic.total, 0)}
-                  </div>
-                  <div className="text-xs text-muted-foreground font-kanit">รวมทั้งหมด</div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
         
         {/* Bottom Section - Regional Feedback Chart */}

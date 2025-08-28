@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -30,52 +29,137 @@ const Dashboard = () => {
 
   const renderContent = () => {
     switch (activeMenu) {
-      case "สรุปภาพรวมประจำเดือน":
+        case "สรุปภาพรวมประจำเดือน":
         return (
-          <div className="space-y-6">
-            <StatsCards />
-            <SatisfactionBlock />
-            <FormSubmissionBlock />
-            <FeedbackBlock />
-          </div>
-        );
-      case "ผลการดำเนินงานรายพื้นที่":
-        return (
-          <div className="flex items-center justify-center h-64 bg-white rounded-2xl border">
-            <p className="text-muted-foreground font-kanit">ผลการดำเนินงานรายพื้นที่</p>
-          </div>
-        );
-      case "ข้อคิดเห็นของลูกค้า":
-        return (
-          <div className="flex items-center justify-center h-64 bg-white rounded-2xl border">
-            <p className="text-muted-foreground font-kanit">ข้อคิดเห็นของลูกค้า</p>
-          </div>
-        );
-      case "ข้อร้องเรียนรุนแรง":
-        return (
-          <div className="flex items-center justify-center h-64 bg-white rounded-2xl border">
-            <p className="text-muted-foreground font-kanit">ข้อร้องเรียนรุนแรง</p>
-          </div>
-        );
-      case "AI Chat ช่วยวิเคราะห์":
-        return (
-          <div className="flex items-center justify-center h-64 bg-white rounded-2xl border">
-            <p className="text-muted-foreground font-kanit">AI Chat ช่วยวิเคราะห์</p>
-          </div>
-        );
-      case "เอกสารอ้างอิง":
-        return (
-          <div className="flex items-center justify-center h-64 bg-white rounded-2xl border">
-            <p className="text-muted-foreground font-kanit">เอกสารอ้างอิง</p>
+          <div className="space-y-8">
+            {/* Main Dashboard Content */}
+            <div className="space-y-8">
+              <FormSubmissionBlock />
+              <SatisfactionBlock />
+              <FeedbackBlock />
+            </div>
+            
+            {/* Tabs Section */}
+            <div className="mt-12">
+              <Tabs defaultValue="overview" className="w-full">
+                <TabsList className="grid w-full grid-cols-4 h-12 mb-8">
+                  <TabsTrigger 
+                    value="overview" 
+                    className="font-kanit text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                  >
+                    ภาพรวมทั้งหมด
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="regional" 
+                    className="font-kanit text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                  >
+                    เปรียบเทียบรายภาค
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="analysis" 
+                    className="font-kanit text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                  >
+                    การวิเคราะห์เชิงลึก
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="trends" 
+                    className="font-kanit text-sm data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+                  >
+                    แนวโน้มและคาดการณ์
+                  </TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value="overview" className="space-y-6">
+                  <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6">
+                    <div className="h-2 bg-gradient-to-r from-[#DF7AB0] to-[#F9B5D3] rounded-t-xl -mt-6 -mx-6 mb-6"></div>
+                    <h3 className="text-xl font-bold font-kanit text-foreground mb-4">ภาพรวมข้อมูลทั้งหมด</h3>
+                    <p className="text-muted-foreground font-kanit mb-6">
+                      สรุปข้อมูลการให้บริการและความพึงพอใจของลูกค้าทั้งหมด
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg">
+                        <div className="text-2xl font-bold text-blue-600 font-kanit">95.8%</div>
+                        <div className="text-sm text-blue-700 font-kanit">ความพึงพอใจโดยรวม</div>
+                      </div>
+                      <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 rounded-lg">
+                        <div className="text-2xl font-bold text-green-600 font-kanit">2,847</div>
+                        <div className="text-sm text-green-700 font-kanit">ข้อเสนอแนะเชิงบวก</div>
+                      </div>
+                      <div className="text-center p-4 bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg">
+                        <div className="text-2xl font-bold text-orange-600 font-kanit">234</div>
+                        <div className="text-sm text-orange-700 font-kanit">ข้อร้องเรียนที่ต้องติดตาม</div>
+                      </div>
+                    </div>
+                  </div>
+                </TabsContent>
+                
+                <TabsContent value="regional" className="space-y-6">
+                  <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6">
+                    <div className="h-2 bg-gradient-to-r from-[#DF7AB0] to-[#F9B5D3] rounded-t-xl -mt-6 -mx-6 mb-6"></div>
+                    <h3 className="text-xl font-bold font-kanit text-foreground mb-4">เปรียบเทียบข้อมูลรายภาค</h3>
+                    <p className="text-muted-foreground font-kanit mb-6">
+                      เปรียบเทียบความพึงพอใจและข้อร้องเรียนระหว่างภาคต่างๆ
+                    </p>
+                    <div className="h-64 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg">
+                      <p className="text-gray-500 font-kanit">กราฟเปรียบเทียบรายภาคจะแสดงที่นี่</p>
+                    </div>
+                  </div>
+                </TabsContent>
+                
+                <TabsContent value="analysis" className="space-y-6">
+                  <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6">
+                    <div className="h-2 bg-gradient-to-r from-[#DF7AB0] to-[#F9B5D3] rounded-t-xl -mt-6 -mx-6 mb-6"></div>
+                    <h3 className="text-xl font-bold font-kanit text-foreground mb-4">การวิเคราะห์เชิงลึก</h3>
+                    <p className="text-muted-foreground font-kanit mb-6">
+                      การวิเคราะห์แนวโน้ม รูปแบบ และข้อเสนอแนะเชิงลึก
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div className="h-48 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg">
+                        <p className="text-gray-500 font-kanit">แผนภูมิวิเคราะห์แนวโน้ม</p>
+                      </div>
+                      <div className="h-48 flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg">
+                        <p className="text-gray-500 font-kanit">การจัดกลุ่มข้อร้องเรียน</p>
+                      </div>
+                    </div>
+                  </div>
+                </TabsContent>
+                
+                <TabsContent value="trends" className="space-y-6">
+                  <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6">
+                    <div className="h-2 bg-gradient-to-r from-[#DF7AB0] to-[#F9B5D3] rounded-t-xl -mt-6 -mx-6 mb-6"></div>
+                    <h3 className="text-xl font-bold font-kanit text-foreground mb-4">แนวโน้มและคาดการณ์</h3>
+                    <p className="text-muted-foreground font-kanit mb-6">
+                      การคาดการณ์แนวโน้มในอนาคตและข้อเสนอแนะเชิงกลยุทธ์
+                    </p>
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg">
+                        <div className="w-3 h-3 bg-purple-500 rounded-full"></div>
+                        <div className="flex-1">
+                          <div className="font-medium text-purple-700 font-kanit">คาดการณ์ความพึงพอใจเดือนหน้า</div>
+                          <div className="text-sm text-purple-600 font-kanit">แนวโน้มเพิ่มขึ้น 2.3%</div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-4 p-4 bg-gradient-to-r from-indigo-50 to-indigo-100 rounded-lg">
+                        <div className="w-3 h-3 bg-indigo-500 rounded-full"></div>
+                        <div className="flex-1">
+                          <div className="font-medium text-indigo-700 font-kanit">พื้นที่ที่ต้องปรับปรุง</div>
+                          <div className="text-sm text-indigo-600 font-kanit">ระยะเวลาการตอบสนอง</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </TabsContent>
+              </Tabs>
+            </div>
           </div>
         );
       default:
         return (
-          <div className="space-y-6">
-            <StatsCards />
-            <SatisfactionBlock />
-            <FormSubmissionBlock />
-            <FeedbackBlock />
+          <div className="flex items-center justify-center h-64">
+            <div className="text-center space-y-2">
+              <h2 className="text-2xl font-semibold text-muted-foreground">{activeMenu}</h2>
+              <p className="text-muted-foreground">เนื้อหาของส่วนนี้จะพัฒนาในเร็วๆ นี้</p>
+            </div>
           </div>
         );
     }

@@ -4,169 +4,170 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 
+
+const topicsData = [
+  { topic: "การดูแล ความเอาใจใส่", negative: 11, positive: 20, total: 31 },
+  { topic: "ความน่าเชื่อถือการตอบคำถามและแนะนำ", negative: 32, positive: 64, total: 96 },
+  { topic: "ความรวดเร็วในการให้บริการ", negative: 22, positive: 53, total: 75 },
+  { topic: "ความถูกต้องในการทำธุรกรรม", negative: 43, positive: 54, total: 97 },
+  { topic: "ความพร้อมของเครื่องมือ", negative: 33, positive: 66, total: 99 },
+  { topic: "สภาพแวดล้อมของสาขา", negative: 44, positive: 52, total: 96 },
+  { topic: "ความประทับใจในการให้บริการ", negative: 23, positive: 44, total: 77 }
+];
+
 // ข้อมูลคะแนนความพึงพอใจตามภาค
 const satisfactionDataByRegion = {
+  "all": [
+    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.3 },
+    { criteria: "ความน่าเชื่อถือ", score: 4.1 },
+    { criteria: "ความรวดเร็ว", score: 4.2 },
+    { criteria: "ความสุภาพ/บริการ", score: 4.4 },
+    { criteria: "สภาพแวดล้อม", score: 4.0 },
+    { criteria: "ความพร้อมรับ", score: 4.2 }
+  ],
   "ภาค 1": [
-    { criteria: "การดูแล ความเอาใจใส่", score: 4.5 },
-    { criteria: "ความประทับใจฯ", score: 4.3 },
-    { criteria: "ความน่าเชื่อถือฯ", score: 4.2 },
-    { criteria: "ความรวดเร็วฯ", score: 4.1 },
-    { criteria: "ความถูกต้องฯ", score: 3.5 },
-    { criteria: "ความพร้อมฯ", score: 4.0 },
-    { criteria: "สภาพแวดล้อมฯ", score: 3.9 }
+    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.5 },
+    { criteria: "ความน่าเชื่อถือ", score: 4.2 },
+    { criteria: "ความรวดเร็ว", score: 4.3 },
+    { criteria: "ความสุภาพ/บริการ", score: 4.6 },
+    { criteria: "สภาพแวดล้อม", score: 4.1 },
+    { criteria: "ความพร้อมรับ", score: 4.3 }
   ],
   "ภาค 2": [
-    { criteria: "การดูแล ความเอาใจใส่", score: 3.5 },
-    { criteria: "ความประทับใจฯ", score: 4.2 },
-    { criteria: "ความน่าเชื่อถือฯ", score: 4.3 },
-    { criteria: "ความรวดเร็วฯ", score: 4.1 },
-    { criteria: "ความถูกต้องฯ", score: 2.8 },
-    { criteria: "ความพร้อมฯ", score: 4.2 },
-    { criteria: "สภาพแวดล้อมฯ", score: 2.5 }
+    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.1 },
+    { criteria: "ความน่าเชื่อถือ", score: 4.0 },
+    { criteria: "ความรวดเร็ว", score: 4.1 },
+    { criteria: "ความสุภาพ/บริการ", score: 4.3 },
+    { criteria: "สภาพแวดล้อม", score: 3.9 },
+    { criteria: "ความพร้อมรับ", score: 4.1 }
   ],
   "ภาค 3": [
-    { criteria: "การดูแล ความเอาใจใส่", score: 3.3 },
-    { criteria: "ความประทับใจฯ", score: 4.4 },
-    { criteria: "ความน่าเชื่อถือฯ", score: 3.5 },
-    { criteria: "ความรวดเร็วฯ", score: 3.9 },
-    { criteria: "ความถูกต้องฯ", score: 4.6 },
-    { criteria: "ความพร้อมฯ", score: 4.0 },
-    { criteria: "สภาพแวดล้อมฯ", score: 4.3 }
+    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.6 },
+    { criteria: "ความน่าเชื่อถือ", score: 4.4 },
+    { criteria: "ความรวดเร็ว", score: 4.5 },
+    { criteria: "ความสุภาพ/บริการ", score: 4.7 },
+    { criteria: "สภาพแวดล้อม", score: 4.3 },
+    { criteria: "ความพร้อมรับ", score: 4.5 }
   ],
   "ภาค 4": [
-    { criteria: "การดูแล ความเอาใจใส่", score: 2.4 },
-    { criteria: "ความประทับใจฯ", score: 4.1 },
-    { criteria: "ความน่าเชื่อถือฯ", score: 4.0 },
-    { criteria: "ความรวดเร็วฯ", score: 3.9 },
-    { criteria: "ความถูกต้องฯ", score: 3.8 },
-    { criteria: "ความพร้อมฯ", score: 4.1 },
-    { criteria: "สภาพแวดล้อมฯ", score: 4.5 }
+    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.2 },
+    { criteria: "ความน่าเชื่อถือ", score: 3.9 },
+    { criteria: "ความรวดเร็ว", score: 4.0 },
+    { criteria: "ความสุภาพ/บริการ", score: 4.2 },
+    { criteria: "สภาพแวดล้อม", score: 3.8 },
+    { criteria: "ความพร้อมรับ", score: 4.0 }
   ],
   "ภาค 5": [
-    { criteria: "การดูแล ความเอาใจใส่", score: 4.4 },
-    { criteria: "ความประทับใจฯ", score: 4.3 },
-    { criteria: "ความน่าเชื่อถือฯ", score: 3.8 },
-    { criteria: "ความรวดเร็วฯ", score: 4.5 },
-    { criteria: "ความถูกต้องฯ", score: 4.7 },
-    { criteria: "ความพร้อมฯ", score: 4.3 },
-    { criteria: "สภาพแวดล้อมฯ", score: 4.2 }
+    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.4 },
+    { criteria: "ความน่าเชื่อถือ", score: 4.3 },
+    { criteria: "ความรวดเร็ว", score: 4.2 },
+    { criteria: "ความสุภาพ/บริการ", score: 4.5 },
+    { criteria: "สภาพแวดล้อม", score: 4.2 },
+    { criteria: "ความพร้อมรับ", score: 4.4 }
   ],
   "ภาค 6": [
-    { criteria: "การดูแล ความเอาใจใส่", score: 4.1 },
-    { criteria: "ความประทับใจฯ", score: 4.4 },
-    { criteria: "ความน่าเชื่อถือฯ", score: 3.8 },
-    { criteria: "ความรวดเร็วฯ", score: 3.8 },
-    { criteria: "ความถูกต้องฯ", score: 4.6 },
-    { criteria: "ความพร้อมฯ", score: 4.0 },
-    { criteria: "สภาพแวดล้อมฯ", score: 4.5 }
+    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.0 },
+    { criteria: "ความน่าเชื่อถือ", score: 3.8 },
+    { criteria: "ความรวดเร็ว", score: 3.9 },
+    { criteria: "ความสุภาพ/บริการ", score: 4.1 },
+    { criteria: "สภาพแวดล้อม", score: 3.7 },
+    { criteria: "ความพร้อมรับ", score: 3.9 }
   ],
   "ภาค 7": [
-    { criteria: "การดูแล ความเอาใจใส่", score: 4.2 },
-    { criteria: "ความประทับใจฯ", score: 4.3 },
-    { criteria: "ความน่าเชื่อถือฯ", score: 2.4 },
-    { criteria: "ความรวดเร็วฯ", score: 4.1 },
-    { criteria: "ความถูกต้องฯ", score: 4.7 },
-    { criteria: "ความพร้อมฯ", score: 3.8 },
-    { criteria: "สภาพแวดล้อมฯ", score: 4.3 }
+    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.3 },
+    { criteria: "ความน่าเชื่อถือ", score: 4.1 },
+    { criteria: "ความรวดเร็ว", score: 4.1 },
+    { criteria: "ความสุภาพ/บริการ", score: 4.4 },
+    { criteria: "สภาพแวดล้อม", score: 4.0 },
+    { criteria: "ความพร้อมรับ", score: 4.2 }
   ],
   "ภาค 8": [
-    { criteria: "การดูแล ความเอาใจใส่", score: 4.3 },
-    { criteria: "ความประทับใจฯ", score: 4.2 },
-    { criteria: "ความน่าเชื่อถือฯ", score: 3.8 },
-    { criteria: "ความรวดเร็วฯ", score: 4.3 },
-    { criteria: "ความถูกต้องฯ", score: 4.8 },
-    { criteria: "ความพร้อมฯ", score: 4.1 },
-    { criteria: "สภาพแวดล้อมฯ", score: 4.4 }
+    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.7 },
+    { criteria: "ความน่าเชื่อถือ", score: 4.5 },
+    { criteria: "ความรวดเร็ว", score: 4.6 },
+    { criteria: "ความสุภาพ/บริการ", score: 4.8 },
+    { criteria: "สภาพแวดล้อม", score: 4.4 },
+    { criteria: "ความพร้อมรับ", score: 4.6 }
   ],
   "ภาค 9": [
-    { criteria: "การดูแล ความเอาใจใส่", score: 4.4 },
-    { criteria: "ความประทับใจฯ", score: 4.1 },
-    { criteria: "ความน่าเชื่อถือฯ", score: 4.2 },
-    { criteria: "ความรวดเร็วฯ", score: 4.5 },
-    { criteria: "ความถูกต้องฯ", score: 3.8 },
-    { criteria: "ความพร้อมฯ", score: 4.0 },
-    { criteria: "สภาพแวดล้อมฯ", score: 4.3 }
+    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.1 },
+    { criteria: "ความน่าเชื่อถือ", score: 3.9 },
+    { criteria: "ความรวดเร็ว", score: 4.0 },
+    { criteria: "ความสุภาพ/บริการ", score: 4.2 },
+    { criteria: "สภาพแวดล้อม", score: 3.8 },
+    { criteria: "ความพร้อมรับ", score: 4.0 }
   ],
   "ภาค 10": [
-    { criteria: "การดูแล ความเอาใจใส่", score: 2.6 },
-    { criteria: "ความประทับใจฯ", score: 4.3 },
-    { criteria: "ความน่าเชื่อถือฯ", score: 4.1 },
-    { criteria: "ความรวดเร็วฯ", score: 4.4 },
-    { criteria: "ความถูกต้องฯ", score: 3.8 },
-    { criteria: "ความพร้อมฯ", score: 4.2 },
-    { criteria: "สภาพแวดล้อมฯ", score: 4.5 }
+    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.5 },
+    { criteria: "ความน่าเชื่อถือ", score: 4.3 },
+    { criteria: "ความรวดเร็ว", score: 4.4 },
+    { criteria: "ความสุภาพ/บริการ", score: 4.6 },
+    { criteria: "สภาพแวดล้อม", score: 4.2 },
+    { criteria: "ความพร้อมรับ", score: 4.4 }
   ],
   "ภาค 11": [
-    { criteria: "การดูแล ความเอาใจใส่", score: 4.1 },
-    { criteria: "ความประทับใจฯ", score: 4.4 },
-    { criteria: "ความน่าเชื่อถือฯ", score: 3.8 },
-    { criteria: "ความรวดเร็วฯ", score: 4.3 },
-    { criteria: "ความถูกต้องฯ", score: 3.8 },
-    { criteria: "ความพร้อมฯ", score: 4.1 },
-    { criteria: "สภาพแวดล้อมฯ", score: 4.2 }
+    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.2 },
+    { criteria: "ความน่าเชื่อถือ", score: 4.0 },
+    { criteria: "ความรวดเร็ว", score: 4.1 },
+    { criteria: "ความสุภาพ/บริการ", score: 4.3 },
+    { criteria: "สภาพแวดล้อม", score: 3.9 },
+    { criteria: "ความพร้อมรับ", score: 4.1 }
   ],
   "ภาค 12": [
-    { criteria: "การดูแล ความเอาใจใส่", score: 4.3 },
-    { criteria: "ความประทับใจฯ", score: 4.2 },
-    { criteria: "ความน่าเชื่อถือฯ", score: 3.8 },
-    { criteria: "ความรวดเร็วฯ", score: 4.1 },
-    { criteria: "ความถูกต้องฯ", score: 4.8 },
-    { criteria: "ความพร้อมฯ", score: 4.3 },
-    { criteria: "สภาพแวดล้อมฯ", score: 4.4 }
+    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.4 },
+    { criteria: "ความน่าเชื่อถือ", score: 4.2 },
+    { criteria: "ความรวดเร็ว", score: 4.3 },
+    { criteria: "ความสุภาพ/บริการ", score: 4.5 },
+    { criteria: "สภาพแวดล้อม", score: 4.1 },
+    { criteria: "ความพร้อมรับ", score: 4.3 }
   ],
   "ภาค 13": [
-    { criteria: "การดูแล ความเอาใจใส่", score: 4.4 },
-    { criteria: "ความประทับใจฯ", score: 4.1 },
-    { criteria: "ความน่าเชื่อถือฯ", score: 4.3 },
-    { criteria: "ความรวดเร็วฯ", score: 4.2 },
-    { criteria: "ความถูกต้องฯ", score: 4.6 },
-    { criteria: "ความพร้อมฯ", score: 4.0 },
-    { criteria: "สภาพแวดล้อมฯ", score: 4.3 }
+    { criteria: "การอธิบาย/ความเข้าใจได้", score: 3.9 },
+    { criteria: "ความน่าเชื่อถือ", score: 3.7 },
+    { criteria: "ความรวดเร็ว", score: 3.8 },
+    { criteria: "ความสุภาพ/บริการ", score: 4.0 },
+    { criteria: "สภาพแวดล้อม", score: 3.6 },
+    { criteria: "ความพร้อมรับ", score: 3.8 }
   ],
   "ภาค 14": [
-    { criteria: "การดูแล ความเอาใจใส่", score: 4.2 },
-    { criteria: "ความประทับใจฯ", score: 4.4 },
-    { criteria: "ความน่าเชื่อถือฯ", score: 3.8 },
-    { criteria: "ความรวดเร็วฯ", score: 4.3 },
-    { criteria: "ความถูกต้องฯ", score: 3.8 },
-    { criteria: "ความพร้อมฯ", score: 4.1 },
-    { criteria: "สภาพแวดล้อมฯ", score: 4.2 }
+    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.6 },
+    { criteria: "ความน่าเชื่อถือ", score: 4.4 },
+    { criteria: "ความรวดเร็ว", score: 4.5 },
+    { criteria: "ความสุภาพ/บริการ", score: 4.7 },
+    { criteria: "สภาพแวดล้อม", score: 4.3 },
+    { criteria: "ความพร้อมรับ", score: 4.5 }
   ],
   "ภาค 15": [
-    { criteria: "การดูแล ความเอาใจใส่", score: 4.3 },
-    { criteria: "ความประทับใจฯ", score: 4.2 },
-    { criteria: "ความน่าเชื่อถือฯ", score: 4.4 },
-    { criteria: "ความรวดเร็วฯ", score: 4.5 },
-    { criteria: "ความถูกต้องฯ", score: 4.6 },
-    { criteria: "ความพร้อมฯ", score: 4.0 },
-    { criteria: "สภาพแวดล้อมฯ", score: 4.5 }
+    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.1 },
+    { criteria: "ความน่าเชื่อถือ", score: 3.9 },
+    { criteria: "ความรวดเร็ว", score: 4.0 },
+    { criteria: "ความสุภาพ/บริการ", score: 4.2 },
+    { criteria: "สภาพแวดล้อม", score: 3.8 },
+    { criteria: "ความพร้อมรับ", score: 4.0 }
   ],
   "ภาค 16": [
-    { criteria: "การดูแล ความเอาใจใส่", score: 4.1 },
-    { criteria: "ความประทับใจฯ", score: 4.3 },
-    { criteria: "ความน่าเชื่อถือฯ", score: 4.2 },
-    { criteria: "ความรวดเร็วฯ", score: 2.5 },
-    { criteria: "ความถูกต้องฯ", score: 4.7 },
-    { criteria: "ความพร้อมฯ", score: 4.1 },
-    { criteria: "สภาพแวดล้อมฯ", score: 3.8 }
+    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.3 },
+    { criteria: "ความน่าเชื่อถือ", score: 4.1 },
+    { criteria: "ความรวดเร็ว", score: 4.2 },
+    { criteria: "ความสุภาพ/บริการ", score: 4.4 },
+    { criteria: "สภาพแวดล้อม", score: 4.0 },
+    { criteria: "ความพร้อมรับ", score: 4.2 }
   ],
   "ภาค 17": [
-    { criteria: "การดูแล ความเอาใจใส่", score: 3.8 },
-    { criteria: "ความประทับใจฯ", score: 2.7 },
-    { criteria: "ความน่าเชื่อถือฯ", score: 4.1 },
-    { criteria: "ความรวดเร็วฯ", score: 4.2 },
-    { criteria: "ความถูกต้องฯ", score: 3.8 },
-    { criteria: "ความพร้อมฯ", score: 4.0 },
-    { criteria: "สภาพแวดล้อมฯ", score: 4.4 }
+    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.5 },
+    { criteria: "ความน่าเชื่อถือ", score: 4.3 },
+    { criteria: "ความรวดเร็ว", score: 4.4 },
+    { criteria: "ความสุภาพ/บริการ", score: 4.6 },
+    { criteria: "สภาพแวดล้อม", score: 4.2 },
+    { criteria: "ความพร้อมรับ", score: 4.4 }
   ],
   "ภาค 18": [
-    { criteria: "การดูแล ความเอาใจใส่", score: 3.8 },
-    { criteria: "ความประทับใจฯ", score: 4.1 },
-    { criteria: "ความน่าเชื่อถือฯ", score: 4.3 },
-    { criteria: "ความรวดเร็วฯ", score: 3.8 },
-    { criteria: "ความถูกต้องฯ", score: 4.6 },
-    { criteria: "ความพร้อมฯ", score: 4.2 },
-    { criteria: "สภาพแวดล้อมฯ", score: 4.5 }
+    { criteria: "การอธิบาย/ความเข้าใจได้", score: 4.8 },
+    { criteria: "ความน่าเชื่อถือ", score: 4.6 },
+    { criteria: "ความรวดเร็ว", score: 4.7 },
+    { criteria: "ความสุภาพ/บริการ", score: 4.9 },
+    { criteria: "สภาพแวดล้อม", score: 4.5 },
+    { criteria: "ความพร้อมรับ", score: 4.7 }
   ]
 };
 
@@ -193,27 +194,10 @@ const regionScores = [
 
 export const SatisfactionBlock = () => {
   // Component state for selected region
-  const [selectedRegion, setSelectedRegion] = useState<keyof typeof satisfactionDataByRegion | "all">("all");
-
-  // Calculate average data across all regions when "all" is selected
-  const calculateAverageData = () => {
-    const criteriaNames = Object.keys(satisfactionDataByRegion).length > 0 
-      ? satisfactionDataByRegion[Object.keys(satisfactionDataByRegion)[0] as keyof typeof satisfactionDataByRegion].map(item => item.criteria)
-      : [];
-    
-    return criteriaNames.map(criteria => {
-      const scores = Object.values(satisfactionDataByRegion).map(regionData => 
-        regionData.find(item => item.criteria === criteria)?.score || 0
-      );
-      const averageScore = scores.reduce((sum, score) => sum + score, 0) / scores.length;
-      return { criteria, score: averageScore };
-    });
-  };
+  const [selectedRegion, setSelectedRegion] = useState<keyof typeof satisfactionDataByRegion>("all");
 
   // ข้อมูลที่จะแสดงใน RadarChart
-  const satisfactionCriteria = selectedRegion === "all" 
-    ? calculateAverageData()
-    : satisfactionDataByRegion[selectedRegion];
+  const satisfactionCriteria = satisfactionDataByRegion[selectedRegion];
 
   // คำนวณค่าเฉลี่ย
   const averageScore =
@@ -241,7 +225,7 @@ export const SatisfactionBlock = () => {
               <h3 className="font-kanit text-lg font-semibold text-foreground">คะแนนเฉลี่ยตามเกณฑ์</h3>
               <Select 
                 value={selectedRegion}
-                onValueChange={(value) => setSelectedRegion(value as keyof typeof satisfactionDataByRegion | "all")}
+                onValueChange={(value) => setSelectedRegion(value as keyof typeof satisfactionDataByRegion)}
               >
                 <SelectTrigger className="w-[140px] bg-white border border-border rounded-lg text-sm font-kanit">
                   <SelectValue />
@@ -300,26 +284,10 @@ export const SatisfactionBlock = () => {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="font-kanit text-lg font-semibold text-foreground">เปรียบเทียบคะแนนรายภาค (ภาค1–ภาค18)</h3>
-                <Select 
-                value={selectedRegion}
-                onValueChange={(value) => setSelectedRegion(value as keyof typeof satisfactionDataByRegion | "all")}
-              >
-                <SelectTrigger className="w-[140px] bg-white border border-border rounded-lg text-sm font-kanit">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent className="bg-white border border-border rounded-lg shadow-lg z-50">
-                  <SelectItem value="all" className="font-kanit">เลือกทั้งหมด</SelectItem>
-                  {regionScores.map((region) => (
-                    <SelectItem key={region.region} value={region.region} className="font-kanit">
-                      {region.region}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
             </div>
             <div className="h-80">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={regionScores} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                <BarChart data={topicsData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" opacity={0.5} />
                   <XAxis 
                     dataKey="region" 

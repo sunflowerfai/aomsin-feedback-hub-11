@@ -61,10 +61,11 @@ export const SatisfactionBlock = () => {
                 </SelectTrigger>
                 <SelectContent className="bg-white border border-border rounded-lg shadow-lg z-50">
                   <SelectItem value="all" className="font-kanit">เลือกทั้งหมด</SelectItem>
-                  <SelectItem value="region1" className="font-kanit">ภาคเหนือ</SelectItem>
-                  <SelectItem value="region2" className="font-kanit">ภาคกลาง</SelectItem>
-                  <SelectItem value="region3" className="font-kanit">ภาคใต้</SelectItem>
-                  <SelectItem value="region4" className="font-kanit">ภาคตะวันออก</SelectItem>
+                  {regionScores.map((region) => (
+                    <SelectItem key={region.region} value={region.region} className="font-kanit">
+                      {region.region}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>

@@ -114,8 +114,7 @@ export const FeedbackBlock = () => {
             </div>
           </div>
           
-          {/* Topics Mentioned - Butterfly Chart */}
-{/* Topics Mentioned - Butterfly Chart */}
+          {/* Topics Mentioned */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="font-kanit text-lg font-semibold text-foreground">ประเด็นที่ถูกกล่าวถึง</h3>
@@ -138,103 +137,41 @@ export const FeedbackBlock = () => {
                 </Button>
               </div>
             </div>
-            
-            <div className="h-80">
-              <div className="flex flex-col h-full">
-                {/* Chart area */}
-                <div className="flex-1 relative">
-                  {/* Y-axis labels */}
-                  <div className="absolute left-0 top-0 bottom-0 w-28 flex flex-col justify-around py-4">
-                    {topicsData.map((item, index) => (
-                      <div key={index} className="text-sm font-kanit text-gray-600 text-right pr-2">
-                        {item.topic}
+            <div className="space-y-3">
+              {topicsData.map((topic, index) => (
+                <div key={index} className="flex items-center gap-3">
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-medium text-foreground font-kanit mb-1 truncate">
+                      {topic.topic}
+                    </div>
+                    <div className="flex items-center h-6 bg-gray-100 rounded-full overflow-hidden">
+                      {/* Negative bar (left) */}
+                      <div 
+                        className="h-full bg-red-500 flex items-center justify-end pr-1"
+                        style={{ width: `${(Math.abs(topic.negative) / topic.total) * 50}%` }}
+                      >
+                        {Math.abs(topic.negative) > 15 && (
+                          <span className="text-xs text-white font-kanit font-medium">
+                            {Math.abs(topic.negative)}
+                          </span>
+                        )}
                       </div>
-                    ))}
+                      {/* Positive bar (right) */}
+                      <div 
+                        className="h-full bg-green-500 flex items-center justify-start pl-1"
+                        style={{ width: `${(topic.positive / topic.total) * 50}%` }}
+                      >
+                        {topic.positive > 15 && (
+                          <span className="text-xs text-white font-kanit font-medium">
+                            {topic.positive}
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   </div>
                   
-                  {/* Chart bars */}
-                  <div className="ml-28 h-full flex flex-col justify-around py-4">
-                    {topicsData.map((item, index) => (
-                      <div key={index} className="flex items-center h-8 relative">
-                        {/* Negative bar (left side) */}
-                        <div className="flex-1 flex justify-end pr-1">
-                          <div 
-                            className="bg-red-500 h-6 flex items-center justify-center text-white text-xs font-kanit font-medium"
-                            style={{ 
-                              width: `${(Math.abs(item.negative) / 50) * 100}%`,
-                              minWidth: Math.abs(item.negative) > 10 ? 'auto' : '24px'
-                            }}
-                          >
-                            {Math.abs(item.negative)}
-                          </div>
-                        </div>
-                        
-                        {/* Center line */}
-                        <div className="w-px bg-gray-300 h-8"></div>
-                        
-                        {/* Positive bar (right side) */}
-                        <div className="flex-1 flex justify-start pl-1">
-                          <div 
-                            className="bg-green-500 h-6 flex items-center justify-center text-white text-xs font-kanit font-medium"
-                            style={{ 
-                              width: `${(item.positive / 130) * 100}%`,
-                              minWidth: item.positive > 10 ? 'auto' : '24px'
-                            }}
-                          >
-                            {item.positive}
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
                 </div>
-                
-                {/* X-axis */}
-                <div className="ml-28 flex justify-between text-sm font-kanit text-gray-600 px-2 pt-2">
-                  <span>-50</span>
-                  <span>-25</span>
-                  <span>0</span>
-                  <span>40</span>
-                  <span>85</span>
-                  <span>130</span>
-                </div>
-              </div>
-            </div>
-            
-            {/* Legend and Summary */}
-            <div className="flex flex-col gap-3">
-              <div className="flex justify-center gap-6">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                  <span className="font-kanit text-sm text-muted-foreground">ความคิดเห็นเชิงลบ</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                  <span className="font-kanit text-sm text-muted-foreground">ความคิดเห็นเชิงบวก</span>
-                </div>
-              </div>
-              
-              {/* Quick stats */}
-              <div className="grid grid-cols-3 gap-4 pt-2 border-t border-gray-100">
-                <div className="text-center">
-                  <div className="text-lg font-bold text-green-600 font-kanit">
-                    {topicsData.reduce((sum, topic) => sum + topic.positive, 0)}
-                  </div>
-                  <div className="text-xs text-muted-foreground font-kanit">รวมเชิงบวก</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-lg font-bold text-red-600 font-kanit">
-                    {topicsData.reduce((sum, topic) => sum + Math.abs(topic.negative), 0)}
-                  </div>
-                  <div className="text-xs text-muted-foreground font-kanit">รวมเชิงลบ</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-lg font-bold text-foreground font-kanit">
-                    {topicsData.reduce((sum, topic) => sum + topic.total, 0)}
-                  </div>
-                  <div className="text-xs text-muted-foreground font-kanit">รวมทั้งหมด</div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>

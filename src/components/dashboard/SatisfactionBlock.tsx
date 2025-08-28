@@ -195,9 +195,16 @@ const regionScores = [
 export const SatisfactionBlock = () => {
   // Component state for selected region
   const [selectedRegion, setSelectedRegion] = useState<keyof typeof satisfactionDataByRegion>("all");
+  // Component state for selected topic
+  const [selectedTopic, setSelectedTopic] = useState<string>("เลือกทั้งหมด");
 
   // ข้อมูลที่จะแสดงใน RadarChart
   const satisfactionCriteria = satisfactionDataByRegion[selectedRegion];
+  
+  // Filter topics data based on selected topic
+  const filteredTopicsData = selectedTopic === "เลือกทั้งหมด" 
+    ? topicsData 
+    : topicsData.filter(item => item.topic === selectedTopic);
 
   // คำนวณค่าเฉลี่ย - add null check to prevent errors
   const averageScore = satisfactionCriteria && satisfactionCriteria.length > 0
@@ -334,6 +341,81 @@ export const SatisfactionBlock = () => {
                 </BarChart>
               </ResponsiveContainer>
             </div>
+          </div>
+        </div>
+        
+        {/* Service Topics Analysis */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <h3 className="font-kanit text-lg font-semibold text-foreground">การวิเคราะห์หัวข้อบริการ</h3>
+            <Select 
+              value={selectedTopic}
+              onValueChange={setSelectedTopic}
+            >
+              <SelectTrigger className="w-[220px] bg-white border border-border rounded-lg text-sm font-kanit">
+                <SelectValue placeholder="เลือกหัวข้อ" />
+              </SelectTrigger>
+              <SelectContent className="bg-white border border-border rounded-lg shadow-lg z-50">
+                <SelectItem value="เลือกทั้งหมด" className="font-kanit">เลือกทั้งหมด</SelectItem>
+                {topicsData.map((item) => (
+                  <SelectItem key={item.topic} value={item.topic} className="font-kanit">
+                    {item.topic}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="h-96">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart 
+                data={filteredTopicsData} 
+                margin={{ top: 20, right: 30, left: 20, bottom: 100 }}
+                layout="horizontal"
+              >
+                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" opacity={0.5} />
+                <XAxis 
+                  type="number"
+                  tick={{ fontSize: 12, fontFamily: 'Kanit' }}
+                  stroke="#6B7280"
+                />
+                <YAxis 
+                  type="category"
+                  dataKey="topic" 
+                  tick={{ fontSize: 10, fontFamily: 'Kanit' }}
+                  stroke="#6B7280"
+                  width={180}
+                />
+                <Tooltip 
+                  formatter={(value: any, name: string) => [
+                    `${value} ความคิดเห็น`, 
+                    name === 'negative' ? 'ความคิดเห็นเชิงลบ' : 'ความคิดเห็นเชิงบวก'
+                  ]}
+                  labelFormatter={(label) => `${label}`}
+                  contentStyle={{
+                    backgroundColor: 'white',
+                    border: '1px solid #E5E7EB',
+                    borderRadius: '8px',
+                    fontFamily: 'Kanit'
+                  }}
+                />
+                <Legend 
+                  wrapperStyle={{ fontFamily: 'Kanit', fontSize: '12px' }}
+                  formatter={(value) => value === 'negative' ? 'ความคิดเห็นเชิงลบ' : 'ความคิดเห็นเชิงบวก'}
+                />
+                <Bar 
+                  dataKey="negative" 
+                  fill="#EF4444" 
+                  radius={[0, 4, 4, 0]}
+                  name="negative"
+                />
+                <Bar 
+                  dataKey="positive" 
+                  fill="#10B981" 
+                  radius={[0, 4, 4, 0]}
+                  name="positive"
+                />
+              </BarChart>
+            </ResponsiveContainer>
           </div>
         </div>
       </CardContent>

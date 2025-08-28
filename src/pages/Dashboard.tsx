@@ -208,7 +208,7 @@ const Dashboard = () => {
       </header>
 
       {/* Main Content */}
-      <main>
+      <main className="main-content transition-all duration-200 ease-out min-h-screen">
         <div className="container mx-auto p-6">
           <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>

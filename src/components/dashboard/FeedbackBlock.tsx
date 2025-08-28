@@ -232,51 +232,6 @@ export const FeedbackBlock = () => {
               </div>
             </div>
           </div>
-            <div className="space-y-3">
-              {topicsData.map((topic, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <div className="flex-1 min-w-0">
-                    <div className="text-sm font-medium text-foreground font-kanit mb-1 truncate">
-                      {topic.topic}
-                    </div>
-                    <div className="flex items-center h-6 bg-gray-100 rounded-full overflow-hidden">
-                      {/* Negative bar (left) */}
-                      <div 
-                        className="h-full bg-red-500 flex items-center justify-end pr-1"
-                        style={{ width: `${(Math.abs(topic.negative) / topic.total) * 50}%` }}
-                      >
-                        {Math.abs(topic.negative) > 15 && (
-                          <span className="text-xs text-white font-kanit font-medium">
-                            {Math.abs(topic.negative)}
-                          </span>
-                        )}
-                      </div>
-                      {/* Positive bar (right) */}
-                      <div 
-                        className="h-full bg-green-500 flex items-center justify-start pl-1"
-                        style={{ width: `${(topic.positive / topic.total) * 50}%` }}
-                      >
-                        {topic.positive > 15 && (
-                          <span className="text-xs text-white font-kanit font-medium">
-                            {topic.positive}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                  {/* Count boxes */}
-                  <div className="flex items-center gap-1 px-2 py-1 bg-red-50 rounded text-red-700 min-w-[60px] justify-center">
-                    <ArrowDownRight className="w-3 h-3" />
-                    <span className="text-xs font-kanit font-medium">{Math.abs(topic.negative)}</span>
-                  </div>
-                  <div className="flex items-center gap-1 px-2 py-1 bg-green-50 rounded text-green-700 min-w-[60px] justify-center">
-                    <ArrowUpRight className="w-3 h-3" />
-                    <span className="text-xs font-kanit font-medium">{topic.positive}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
         
         {/* Bottom Section - Regional Feedback Chart */}

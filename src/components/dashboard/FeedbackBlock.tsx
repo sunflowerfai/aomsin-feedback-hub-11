@@ -1,9 +1,8 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { TrendingUp, Filter, ArrowUpRight, ArrowDownRight } from "lucide-react";
+import { Filter, ArrowUpRight, ArrowDownRight, ArrowUp, ArrowDown } from "lucide-react";
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 import {
   DropdownMenu,
@@ -16,7 +15,7 @@ import {
 
 const allFilters = [
   "Market Conduct",
-  "กระบวนการให้บริการ",
+  "กระบวนการให้บริการ", 
   "ความประทับใจอื่นๆ",
   "เงื่อนไขผลิตภัณฑ์",
   "พนักงานและบุคลากร",
@@ -28,7 +27,7 @@ const allFilters = [
 const categoryTopicsMap: { [key: string]: string[] } = {
   "Market Conduct": [
     "การรบกวน",
-    "การหลอกลวง", 
+    "การหลอกลวง",
     "การเอาเปรียบ",
     "การบังคับ"
   ],
@@ -135,7 +134,6 @@ const topicsData = [
   { topic: "อุณหภูมิ", negative: -36, positive: 176, total: 212 }
 ];
 
-
 const regionFeedbackData = [
   { region: "ภาค 1", previous: 45, positive: 67, negative: 23 },
   { region: "ภาค 2", previous: 52, positive: 58, negative: 28 },
@@ -170,26 +168,43 @@ export const FeedbackBlock = () => {
 
   const [showPositive, setShowPositive] = useState(true);
   const [showNegative, setShowNegative] = useState(true);
+  const [positiveSortDesc, setPositiveSortDesc] = useState(true);
+  const [negativeSortDesc, setNegativeSortDesc] = useState(true);
 
-  // Filter topics based on selected categories
   const getFilteredTopicsData = () => {
     if (selectedFilters.length === allFilters.length) {
-      // Show all data when all filters are selected
-      return topicsData.sort((a, b) => b.total - a.total);
+      return getSortedTopicsData(topicsData);
     }
 
-    // Get all topics that belong to selected categories
     const allowedTopics = selectedFilters.reduce((acc: string[], category) => {
       const categoryTopics = categoryTopicsMap[category] || [];
       return [...acc, ...categoryTopics];
     }, []);
 
-    // Filter and sort the topics data
     const filteredData = topicsData
-      .filter(item => allowedTopics.includes(item.topic))
-      .sort((a, b) => b.total - a.total);
+      .filter(item => allowedTopics.includes(item.topic));
 
-    return filteredData;
+    return getSortedTopicsData(filteredData);
+  };
+
+  const getSortedTopicsData = (data: typeof topicsData) => {
+    return data.sort((a, b) => {
+      if (positiveSortDesc) {
+        if (a.positive !== b.positive) {
+          return b.positive - a.positive;
+        }
+      } else {
+        if (a.positive !== b.positive) {
+          return a.positive - b.positive;
+        }
+      }
+      
+      if (negativeSortDesc) {
+        return Math.abs(b.negative) - Math.abs(a.negative);
+      } else {
+        return Math.abs(a.negative) - Math.abs(b.negative);
+      }
+    });
   };
 
   const filteredTopicsData = getFilteredTopicsData();
@@ -198,7 +213,6 @@ export const FeedbackBlock = () => {
   
   return (
     <Card className="rounded-2xl border shadow-card bg-white overflow-hidden">
-      {/* Pink header strip */}
       <div 
         className="h-2 rounded-t-2xl"
         style={{ background: 'var(--gradient-pink-strip)' }}
@@ -211,9 +225,7 @@ export const FeedbackBlock = () => {
       </CardHeader>
       
       <CardContent className="space-y-6 p-6 pt-0">
-        {/* Top Row - Two sections */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Sentiment Donut */}
           <div className="space-y-4">
             <h3 className="font-kanit text-lg font-semibold text-foreground">ทัศนคติข้อคิดเห็น</h3>
             <div className="h-64">
@@ -265,7 +277,6 @@ export const FeedbackBlock = () => {
             </div>
           </div>
           
-          {/* Topics Mentioned - Butterfly Chart */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="font-kanit text-lg font-semibold text-foreground">ประเด็นที่ถูกกล่าวถึง</h3>
@@ -273,10 +284,20 @@ export const FeedbackBlock = () => {
                 <Button 
                   variant="ghost" 
                   size="icon"
-                  className="w-8 h-8 rounded-full text-muted-foreground hover:text-foreground transition-colors duration-200"
-                  aria-label="เรียงลำดับ"
+                  className="w-8 h-8 rounded-full text-green-600 hover:text-green-700 transition-colors duration-200"
+                  aria-label="เรียงข้อมูลเชิงบวก"
+                  onClick={() => setPositiveSortDesc(!positiveSortDesc)}
                 >
-                  <TrendingUp className="w-4 h-4" />
+                  {positiveSortDesc ? <ArrowDown className="w-4 h-4" /> : <ArrowUp className="w-4 h-4" />}
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="icon"
+                  className="w-8 h-8 rounded-full text-red-600 hover:text-red-700 transition-colors duration-200"
+                  aria-label="เรียงข้อมูลเชิงลบ"
+                  onClick={() => setNegativeSortDesc(!negativeSortDesc)}
+                >
+                  {negativeSortDesc ? <ArrowDown className="w-4 h-4" /> : <ArrowUp className="w-4 h-4" />}
                 </Button>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -328,7 +349,6 @@ export const FeedbackBlock = () => {
             
             <div className="h-80">
               <div className="flex flex-col h-full">
-                {/* Chart area with scroll */}
                 <ScrollArea className="flex-1">
                   <div className="space-y-2 py-4">
                     {filteredTopicsData.length === 0 ? (
@@ -338,7 +358,6 @@ export const FeedbackBlock = () => {
                     ) : (
                       filteredTopicsData.map((item, index) => (
                         <div key={index} className="flex items-center h-8 relative">
-                          {/* Negative bar (left side) */}
                           <div className="flex-1 flex justify-end pr-1">
                             <div 
                               className="bg-red-500 h-6 flex items-center justify-center text-white text-xs font-kanit font-medium"
@@ -351,7 +370,6 @@ export const FeedbackBlock = () => {
                             </div>
                           </div>
                           
-                          {/* Center area with topic name */}
                           <div className="w-40 flex items-center justify-center px-2 flex-shrink-0">
                             <div className="w-px bg-gray-300 h-8 absolute"></div>
                             <span className="text-xs font-kanit text-gray-700 font-medium bg-white px-1 relative z-10 text-center leading-tight">
@@ -359,7 +377,6 @@ export const FeedbackBlock = () => {
                             </span>
                           </div>
                           
-                          {/* Positive bar (right side) */}
                           <div className="flex-1 flex justify-start pl-1">
                             <div 
                               className="bg-green-500 h-6 flex items-center justify-center text-white text-xs font-kanit font-medium"
@@ -377,7 +394,6 @@ export const FeedbackBlock = () => {
                   </div>
                 </ScrollArea>
                 
-                {/* X-axis */}
                 <div className="flex justify-between text-sm font-kanit text-gray-600 px-2 pt-2">
                   <span>-200</span>
                   <span>-100</span>
@@ -389,7 +405,6 @@ export const FeedbackBlock = () => {
               </div>
             </div>
             
-            {/* Legend */}
             <div className="flex flex-col gap-3">
               <div className="flex justify-center gap-6">
                 <div className="flex items-center gap-2">
@@ -405,7 +420,6 @@ export const FeedbackBlock = () => {
           </div>
         </div>
         
-        {/* Bottom Section - Regional Feedback Chart */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="font-kanit text-lg font-semibold text-foreground">ทัศนคติความคิดเห็นรายพื้นที่</h3>

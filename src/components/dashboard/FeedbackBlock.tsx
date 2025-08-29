@@ -3,7 +3,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { TrendingUp, Filter, ArrowUpRight, ArrowDownRight } from "lucide-react";
-import { useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 import {
   DropdownMenu,
@@ -13,16 +12,6 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-
-const [selectedFilters, setSelectedFilters] = useState<string[]>([
-  "Market Conduct",
-  "กระบวนการให้บริการ",
-  "ความประทับใจอื่นๆ",
-  "เงื่อนไขผลิตภัณฑ์",
-  "พนักงานและบุคลากร",
-  "ระบบธนาคารและเทคโนโลยี",
-  "สภาพแวดล้อมและสิ่งอำนวยความสะดวก",
-]);
 
 const allFilters = [
   "Market Conduct",
@@ -89,6 +78,16 @@ const regionFeedbackData = [
 ];
 
 export const FeedbackBlock = () => {
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([
+    "Market Conduct",
+    "กระบวนการให้บริการ",
+    "ความประทับใจอื่นๆ",
+    "เงื่อนไขผลิตภัณฑ์",
+    "พนักงานและบุคลากร",
+    "ระบบธนาคารและเทคโนโลยี",
+    "สภาพแวดล้อมและสิ่งอำนวยความสะดวก",
+  ]);
+
   const [showPositive, setShowPositive] = useState(true);
   const [showNegative, setShowNegative] = useState(true);
   

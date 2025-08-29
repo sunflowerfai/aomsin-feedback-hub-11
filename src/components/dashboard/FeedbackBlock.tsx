@@ -189,23 +189,24 @@ export const FeedbackBlock = () => {
 
   const getSortedTopicsData = (data: typeof topicsData) => {
     return data.sort((a, b) => {
-      if (positiveSortDesc) {
-        if (a.positive !== b.positive) {
-          return b.positive - a.positive;
-        }
-      } else {
-        if (a.positive !== b.positive) {
-          return a.positive - b.positive;
-        }
+      // ถ้ากดเรียงเชิงบวก
+      if (positiveSortDesc !== null) {
+        return positiveSortDesc 
+          ? b.positive - a.positive 
+          : a.positive - b.positive;
       }
-      
-      if (negativeSortDesc) {
-        return Math.abs(b.negative) - Math.abs(a.negative);
-      } else {
-        return Math.abs(a.negative) - Math.abs(b.negative);
+  
+      // ถ้ากดเรียงเชิงลบ
+      if (negativeSortDesc !== null) {
+        return negativeSortDesc 
+          ? b.negative - a.negative 
+          : a.negative - b.negative;
       }
+  
+      return 0;
     });
   };
+
 
   const filteredTopicsData = getFilteredTopicsData();
   
@@ -393,15 +394,7 @@ export const FeedbackBlock = () => {
                     )}
                   </div>
                 </ScrollArea>
-                
-                <div className="flex justify-between text-sm font-kanit text-gray-600 px-2 pt-2">
-                  <span>-200</span>
-                  <span>-100</span>
-                  <span>0</span>
-                  <span>100</span>
-                  <span>200</span>
-                  <span>400</span>
-                </div>
+              
               </div>
             </div>
             

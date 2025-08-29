@@ -189,24 +189,27 @@ export const FeedbackBlock = () => {
 
   const getSortedTopicsData = (data: typeof topicsData) => {
     return data.sort((a, b) => {
-      // ถ้ากดเรียงเชิงบวก
-      if (positiveSortDesc !== null) {
-        return positiveSortDesc 
-          ? b.positive - a.positive 
-          : a.positive - b.positive;
+      if (positiveSortDesc) {
+        if (a.positive !== b.positive) {
+          return b.positive - a.positive;
+        }
+      } else {
+        if (a.positive !== b.positive) {
+          return a.positive - b.positive;
+        }
       }
-  
-      // ถ้ากดเรียงเชิงลบ
-      if (negativeSortDesc !== null) {
-        return negativeSortDesc 
-          ? b.negative - a.negative 
-          : a.negative - b.negative;
+      
+      if (negativeSortDesc) {
+        if (a.negative !== b.negative) {
+          return b.negative - a.negative;
+        }
+      } else {
+        if (a.negative !== b.negative) {
+          return a.negative - b.negative;
+        }
       }
-  
-      return 0;
     });
   };
-
 
   const filteredTopicsData = getFilteredTopicsData();
   

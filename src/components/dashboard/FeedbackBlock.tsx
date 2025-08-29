@@ -1,9 +1,38 @@
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { TrendingUp, Filter, ArrowUpRight, ArrowDownRight } from "lucide-react";
 import { useState } from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuCheckboxItem,
+  DropdownMenuTrigger,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from "@/components/ui/dropdown-menu";
+
+const [selectedFilters, setSelectedFilters] = useState<string[]>([
+  "Market Conduct",
+  "กระบวนการให้บริการ",
+  "ความประทับใจอื่นๆ",
+  "เงื่อนไขผลิตภัณฑ์",
+  "พนักงานและบุคลากร",
+  "ระบบธนาคารและเทคโนโลยี",
+  "สภาพแวดล้อมและสิ่งอำนวยความสะดวก",
+]);
+
+const allFilters = [
+  "Market Conduct",
+  "กระบวนการให้บริการ",
+  "ความประทับใจอื่นๆ",
+  "เงื่อนไขผลิตภัณฑ์",
+  "พนักงานและบุคลากร",
+  "ระบบธนาคารและเทคโนโลยี",
+  "สภาพแวดล้อมและสิ่งอำนวยความสะดวก",
+];
 
 const sentimentData = [
   { name: "เชิงบวก", value: 72.3, count: 892, color: "#20A161" },
@@ -147,14 +176,51 @@ export const FeedbackBlock = () => {
                 >
                   <TrendingUp className="w-4 h-4" />
                 </Button>
-                <Button 
-                  variant="ghost" 
-                  size="icon"
-                  className="w-8 h-8 rounded-full text-muted-foreground hover:text-foreground transition-colors duration-200"
-                  aria-label="กรอง"
-                >
-                  <Filter className="w-4 h-4" />
-                </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button 
+                      variant="ghost" 
+                      size="icon"
+                      className="w-8 h-8 rounded-full text-muted-foreground hover:text-foreground transition-colors duration-200"
+                      aria-label="กรอง"
+                    >
+                      <Filter className="w-4 h-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-64 max-h-80 overflow-y-auto font-kanit">
+                    <DropdownMenuLabel className="font-semibold">หัวข้อหลัก</DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                
+                    {allFilters.map((filter) => (
+                      <DropdownMenuCheckboxItem
+                        key={filter}
+                        checked={selectedFilters.includes(filter)}
+                        onCheckedChange={(checked) => {
+                          setSelectedFilters((prev) =>
+                            checked ? [...prev, filter] : prev.filter((f) => f !== filter)
+                          );
+                        }}
+                      >
+                        {filter}
+                      </DropdownMenuCheckboxItem>
+                    ))}
+                
+                    <DropdownMenuSeparator />
+                    <div className="p-2">
+                      <Button
+                        variant="outline"
+                        className="w-full"
+                        onClick={() =>
+                          setSelectedFilters(
+                            selectedFilters.length === allFilters.length ? [] : allFilters
+                          )
+                        }
+                      >
+                        {selectedFilters.length === allFilters.length ? "ยกเลิกทั้งหมด" : "เลือกทั้งหมด"}
+                      </Button>
+                    </div>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             </div>
             

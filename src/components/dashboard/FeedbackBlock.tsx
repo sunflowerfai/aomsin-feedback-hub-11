@@ -84,27 +84,57 @@ const sentimentData = [
 ];
 
 const topicsData = [
-  { topic: "แสงสว่าง", negative: -158, positive: 349, total: 507 },
-  { topic: "ความเอาใจใส่ในการให้บริการลูกค้า", negative: -48, positive: 288, total: 336 },
-  { topic: "ความสามารถในการตอบคำถามหรือให้คำแนะนำ", negative: -37, positive: 294, total: 331 },
-  { topic: "ความเรียบง่ายข้อมูล", negative: -40, positive: 279, total: 319 },
-  { topic: "ความพร้อมในการให้บริการ", negative: -30, positive: 278, total: 308 },
-  { topic: "ที่จอดรถ", negative: -119, positive: 264, total: 383 },
-  { topic: "เครื่องออกบัตรคิว", negative: -142, positive: 245, total: 387 },
-  { topic: "ความประทับใจในการให้บริการ", negative: -151, positive: 241, total: 392 },
-  { topic: "การเอาเปรียบ", negative: -47, positive: 229, total: 276 },
-  { topic: "ระยะเวลาอนุมัติ", negative: -152, positive: 78, total: 230 },
-  { topic: "ทำเลพื้นที่และควาบคับคั่ง", negative: -39, positive: 155, total: 194 },
-  { topic: "ระบบยืนยันตัวตน", negative: -114, positive: 188, total: 302 },
-  { topic: "การบังคับ", negative: -35, positive: 152, total: 187 },
+  // 1. Market Conduct
   { topic: "การรบกวน", negative: -30, positive: 112, total: 142 },
-  { topic: "เครื่องปรับสมุด", negative: -124, positive: 135, total: 259 },
-  { topic: "ความถูกต้องในการให้บริการ", negative: -28, positive: 127, total: 155 },
+  { topic: "การหลอกลวง", negative: -55, positive: 130, total: 185 },
+  { topic: "การเอาเปรียบ", negative: -47, positive: 229, total: 276 },
+  { topic: "การบังคับ", negative: -35, positive: 152, total: 187 },
+
+  // 2. กระบวนการให้บริการ
+  { topic: "ภาระเอกสาร", negative: -68, positive: 140, total: 208 },
+  { topic: "ขั้นตอนการให้บริการ", negative: -82, positive: 196, total: 278 },
+  { topic: "ความพร้อมในการให้บริการ", negative: -30, positive: 278, total: 308 },
+
+  // 3. ความประทับใจอื่นๆ
+  { topic: "อื่นๆ", negative: -45, positive: 90, total: 135 },
+
+  // 4. เงื่อนไขผลิตภัณฑ์
   { topic: "รายละเอียดผลิตภัณฑ์", negative: -146, positive: 120, total: 266 },
+  { topic: "ความเรียบง่ายข้อมูล", negative: -40, positive: 279, total: 319 },
+  { topic: "ระยะเวลาอนุมัติ", negative: -152, positive: 78, total: 230 },
+  { topic: "เกณฑ์การอนุมัติ", negative: -64, positive: 133, total: 197 },
+
+  // 5. พนักงานและบุคลากร
+  { topic: "ความถูกต้องในการให้บริการ", negative: -28, positive: 127, total: 155 },
+  { topic: "การจัดการและแก้ไขปัญหาเฉพาะหน้า", negative: -52, positive: 170, total: 222 },
+  { topic: "รปภ. แม่บ้าน ฯลฯ", negative: -22, positive: 115, total: 137 },
+  { topic: "ความประทับใจในการให้บริการ", negative: -151, positive: 241, total: 392 },
+  { topic: "ความสามารถในการตอบคำถามหรือให้คำแนะนำ", negative: -37, positive: 294, total: 331 },
+  { topic: "ความรวดเร็วในการให้บริการ", negative: -63, positive: 198, total: 261 },
+  { topic: "ความเอาใจใส่ในการให้บริการลูกค้า", negative: -48, positive: 288, total: 336 },
+  { topic: "ความสุภาพและมารยาทของพนักงาน", negative: -34, positive: 165, total: 199 },
+
+  // 6. ระบบธนาคารและเทคโนโลยี
+  { topic: "เครื่องออกบัตรคิว", negative: -142, positive: 245, total: 387 },
+  { topic: "เครื่องปรับสมุด", negative: -124, positive: 135, total: 259 },
+  { topic: "ระบบยืนยันตัวตน", negative: -114, positive: 188, total: 302 },
+  { topic: "เครื่องนับเงิน", negative: -58, positive: 140, total: 198 },
   { topic: "ระบบ Core ของธนาคาร", negative: -47, positive: 118, total: 165 },
   { topic: "ATM ADM CDM", negative: -66, positive: 48, total: 114 },
-  { topic: "ที่นั่งรอ", negative: -125, positive: 62, total: 187 }
+
+  // 7. สภาพแวดล้อมและสิ่งอำนวยความสะดวก
+  { topic: "สิ่งอำนวยความสะดวกอื่นๆ", negative: -35, positive: 82, total: 117 },
+  { topic: "แสงสว่าง", negative: -158, positive: 349, total: 507 },
+  { topic: "ความสะอาด", negative: -40, positive: 190, total: 230 },
+  { topic: "ที่นั่งรอ", negative: -125, positive: 62, total: 187 },
+  { topic: "ที่จอดรถ", negative: -119, positive: 264, total: 383 },
+  { topic: "ป้าย-สื่อประชาสัมพันธ์", negative: -22, positive: 100, total: 122 },
+  { topic: "ห้องน้ำ", negative: -53, positive: 144, total: 197 },
+  { topic: "ทำเลพื้นที่และควาบคับคั่ง", negative: -39, positive: 155, total: 194 },
+  { topic: "เสียง", negative: -27, positive: 88, total: 115 },
+  { topic: "อุณหภูมิ", negative: -36, positive: 176, total: 212 }
 ];
+
 
 const regionFeedbackData = [
   { region: "ภาค 1", previous: 45, positive: 67, negative: 23 },

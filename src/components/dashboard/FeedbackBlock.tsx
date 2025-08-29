@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -22,6 +23,60 @@ const allFilters = [
   "ระบบธนาคารและเทคโนโลยี",
   "สภาพแวดล้อมและสิ่งอำนวยความสะดวก",
 ];
+
+// Mapping each category to its specific topics
+const categoryTopicsMap: { [key: string]: string[] } = {
+  "Market Conduct": [
+    "การรบกวน",
+    "การหลอกลวง", 
+    "การเอาเปรียบ",
+    "การบังคับ"
+  ],
+  "กระบวนการให้บริการ": [
+    "ภาระเอกสาร",
+    "ขั้นตอนการให้บริการ",
+    "ความพร้อมในการให้บริการ"
+  ],
+  "ความประทับใจอื่นๆ": [
+    "อื่นๆ"
+  ],
+  "เงื่อนไขผลิตภัณฑ์": [
+    "รายละเอียดผลิตภัณฑ์",
+    "ความเรียบง่ายข้อมูล",
+    "ระยะเวลาอนุมัติ",
+    "เกณฑ์การอนุมัติ"
+  ],
+  "พนักงานและบุคลากร": [
+    "ความถูกต้องในการให้บริการ",
+    "การจัดการและแก้ไขปัญหาเฉพาะหน้า",
+    "รปภ. แม่บ้าน ฯลฯ",
+    "ความประทับใจในการให้บริการ",
+    "ความสามารถในการตอบคำถามหรือให้คำแนะนำ",
+    "ความรวดเร็วในการให้บริการ",
+    "ความเอาใจใส่ในการให้บริการลูกค้า",
+    "ความสุภาพและมารยาทของพนักงาน"
+  ],
+  "ระบบธนาคารและเทคโนโลยี": [
+    "เครื่องออกบัตรคิว",
+    "เครื่องปรับสมุด",
+    "ระบบยืนยันตัวตน",
+    "เครื่องนับเงิน",
+    "ระบบ Core ของธนาคาร",
+    "ATM ADM CDM"
+  ],
+  "สภาพแวดล้อมและสิ่งอำนวยความสะดวก": [
+    "สิ่งอำนวยความสะดวกอื่นๆ",
+    "แสงสว่าง",
+    "ความสะอาด",
+    "ที่นั่งรอ",
+    "ที่จอดรถ",
+    "ป้าย-สื่อประชาสัมพันธ์",
+    "ห้องน้ำ",
+    "ทำเลพื้นที่และควาบคับคั่ง",
+    "เสียง",
+    "อุณหภูมิ"
+  ]
+};
 
 const sentimentData = [
   { name: "เชิงบวก", value: 72.3, count: 892, color: "#20A161" },
@@ -51,18 +106,13 @@ const topicsData = [
   { topic: "ที่นั่งรอ", negative: -125, positive: 62, total: 187 }
 ];
 
-// จัดเรียงตาม total จากมากไปน้อย
-const sortedTopicsData = topicsData.sort((a, b) => b.total - a.total);
-
-console.log(sortedTopicsData);
-
 const regionFeedbackData = [
   { region: "ภาค 1", previous: 45, positive: 67, negative: 23 },
   { region: "ภาค 2", previous: 52, positive: 58, negative: 28 },
   { region: "ภาค 3", previous: 38, positive: 72, negative: 18 },
   { region: "ภาค 4", previous: 41, positive: 49, negative: 31 },
   { region: "ภาค 5", previous: 47, positive: 63, negative: 26 },
-  { region: "ภาค 6", previous: 55, positive: 61, negative: 34 },
+  { region: "ภاค 6", previous: 55, positive: 61, negative: 34 },
   { region: "ภาค 7", previous: 43, positive: 78, negative: 19 },
   { region: "ภาค 8", previous: 39, positive: 52, negative: 29 },
   { region: "ภาค 9", previous: 48, positive: 69, negative: 22 },
@@ -90,6 +140,29 @@ export const FeedbackBlock = () => {
 
   const [showPositive, setShowPositive] = useState(true);
   const [showNegative, setShowNegative] = useState(true);
+
+  // Filter topics based on selected categories
+  const getFilteredTopicsData = () => {
+    if (selectedFilters.length === allFilters.length) {
+      // Show all data when all filters are selected
+      return topicsData.sort((a, b) => b.total - a.total);
+    }
+
+    // Get all topics that belong to selected categories
+    const allowedTopics = selectedFilters.reduce((acc: string[], category) => {
+      const categoryTopics = categoryTopicsMap[category] || [];
+      return [...acc, ...categoryTopics];
+    }, []);
+
+    // Filter and sort the topics data
+    const filteredData = topicsData
+      .filter(item => allowedTopics.includes(item.topic))
+      .sort((a, b) => b.total - a.total);
+
+    return filteredData;
+  };
+
+  const filteredTopicsData = getFilteredTopicsData();
   
   const renderPieLabel = ({ value }: any) => `${value}%`;
   
@@ -186,7 +259,7 @@ export const FeedbackBlock = () => {
                       <Filter className="w-4 h-4" />
                     </Button>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-64 max-h-80 overflow-y-auto font-kanit">
+                  <DropdownMenuContent align="end" className="w-64 max-h-80 overflow-y-auto font-kanit bg-white border border-gray-200 shadow-lg z-50">
                     <DropdownMenuLabel className="font-semibold">หัวข้อหลัก</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                 
@@ -228,43 +301,49 @@ export const FeedbackBlock = () => {
                 {/* Chart area with scroll */}
                 <ScrollArea className="flex-1">
                   <div className="space-y-2 py-4">
-                    {sortedTopicsData.map((item, index) => (
-                      <div key={index} className="flex items-center h-8 relative">
-                        {/* Negative bar (left side) */}
-                        <div className="flex-1 flex justify-end pr-1">
-                          <div 
-                            className="bg-red-500 h-6 flex items-center justify-center text-white text-xs font-kanit font-medium"
-                            style={{ 
-                              width: `${(Math.abs(item.negative) / 200) * 100}%`,
-                              minWidth: Math.abs(item.negative) > 10 ? 'auto' : '24px'
-                            }}
-                          >
-                            {Math.abs(item.negative)}
-                          </div>
-                        </div>
-                        
-                        {/* Center area with topic name */}
-                        <div className="w-40 flex items-center justify-center px-2 flex-shrink-0">
-                          <div className="w-px bg-gray-300 h-8 absolute"></div>
-                          <span className="text-xs font-kanit text-gray-700 font-medium bg-white px-1 relative z-10 text-center leading-tight">
-                            {item.topic}
-                          </span>
-                        </div>
-                        
-                        {/* Positive bar (right side) */}
-                        <div className="flex-1 flex justify-start pl-1">
-                          <div 
-                            className="bg-green-500 h-6 flex items-center justify-center text-white text-xs font-kanit font-medium"
-                            style={{ 
-                              width: `${(item.positive / 400) * 100}%`,
-                              minWidth: item.positive > 10 ? 'auto' : '24px'
-                            }}
-                          >
-                            {item.positive}
-                          </div>
-                        </div>
+                    {filteredTopicsData.length === 0 ? (
+                      <div className="text-center text-muted-foreground font-kanit py-8">
+                        ไม่มีข้อมูลสำหรับหมวดหมู่ที่เลือก
                       </div>
-                    ))}
+                    ) : (
+                      filteredTopicsData.map((item, index) => (
+                        <div key={index} className="flex items-center h-8 relative">
+                          {/* Negative bar (left side) */}
+                          <div className="flex-1 flex justify-end pr-1">
+                            <div 
+                              className="bg-red-500 h-6 flex items-center justify-center text-white text-xs font-kanit font-medium"
+                              style={{ 
+                                width: `${(Math.abs(item.negative) / 200) * 100}%`,
+                                minWidth: Math.abs(item.negative) > 10 ? 'auto' : '24px'
+                              }}
+                            >
+                              {Math.abs(item.negative)}
+                            </div>
+                          </div>
+                          
+                          {/* Center area with topic name */}
+                          <div className="w-40 flex items-center justify-center px-2 flex-shrink-0">
+                            <div className="w-px bg-gray-300 h-8 absolute"></div>
+                            <span className="text-xs font-kanit text-gray-700 font-medium bg-white px-1 relative z-10 text-center leading-tight">
+                              {item.topic}
+                            </span>
+                          </div>
+                          
+                          {/* Positive bar (right side) */}
+                          <div className="flex-1 flex justify-start pl-1">
+                            <div 
+                              className="bg-green-500 h-6 flex items-center justify-center text-white text-xs font-kanit font-medium"
+                              style={{ 
+                                width: `${(item.positive / 400) * 100}%`,
+                                minWidth: item.positive > 10 ? 'auto' : '24px'
+                              }}
+                            >
+                              {item.positive}
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    )}
                   </div>
                 </ScrollArea>
                 

@@ -112,7 +112,7 @@ const regionFeedbackData = [
   { region: "ภาค 3", previous: 38, positive: 72, negative: 18 },
   { region: "ภาค 4", previous: 41, positive: 49, negative: 31 },
   { region: "ภาค 5", previous: 47, positive: 63, negative: 26 },
-  { region: "ภاค 6", previous: 55, positive: 61, negative: 34 },
+  { region: "ภาค 6", previous: 55, positive: 61, negative: 34 },
   { region: "ภาค 7", previous: 43, positive: 78, negative: 19 },
   { region: "ภาค 8", previous: 39, positive: 52, negative: 29 },
   { region: "ภาค 9", previous: 48, positive: 69, negative: 22 },
